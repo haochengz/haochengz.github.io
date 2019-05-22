@@ -100,17 +100,18 @@
 
 
 
-  <meta name="description" content="随便写写">
-<meta name="keywords" content="编程 博客 技术 算法 数据结构 Node.js React.js Github Unix Linux Web MongoDB Python Raspberry PI">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aspire">
-<meta property="og:url" content="http://blog.neverland.tech/index.html">
+  <meta name="description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
+<meta name="keywords" content="函数式编程,Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程第一篇 基础概念">
+<meta property="og:url" content="http://blog.neverland.tech/2019/05/23/fp-basic/index.html">
 <meta property="og:site_name" content="Aspire">
-<meta property="og:description" content="随便写写">
+<meta property="og:description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-22T20:53:11.275Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aspire">
-<meta name="twitter:description" content="随便写写">
+<meta name="twitter:title" content="函数式编程第一篇 基础概念">
+<meta name="twitter:description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
 
 
 
@@ -118,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.neverland.tech/">
+  <link rel="canonical" href="http://blog.neverland.tech/2019/05/23/fp-basic/">
 
 
 
@@ -128,7 +129,7 @@
   };
 </script>
 
-  <title>Aspire</title>
+  <title>函数式编程第一篇 基础概念 | Aspire</title>
   
 
 
@@ -176,8 +177,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,7 +219,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -332,9 +332,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -366,10 +366,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/23/fp-basic/" class="post-title-link" itemprop="url">函数式编程第一篇 基础概念</a>
+          <h1 class="post-title" itemprop="name headline">函数式编程第一篇 基础概念
+
               
             
           </h1>
@@ -451,9 +449,7 @@
       
 
       
-        
-          
-            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式.</p>
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式.</p>
 <p>如果你之前并不熟悉函数式编程, 仅仅使用面向对象的方式去编写程序. 而且你已经写过一些中等规模的应用程序. 那么你很有可能在可变状态(mutable state), 无限制副作用(unrestricted side effects)和无原则设计(unprincipled design)中遇到了麻烦.</p>
 <p>写代码需要遵循一定的原则, 例如我们已经有了很多耳熟能详的原则: DRY(Don’t repeat yourself), 高内聚低耦合(loose coupling high cohesion), YAGNI(Ya ain’t gonna need it), 最小意外原则(Principle of least surprise), 单一责任原则(Single responsibility)等等. 这些通用的原则适应范围广泛, 编码时应当时刻考虑它们. </p>
 <h1 id="一个愚蠢的例子"><a href="#一个愚蠢的例子" class="headerlink" title="一个愚蠢的例子"></a>一个愚蠢的例子</h1><p>考虑这么一个程序, 鸟群合并会变成一个更大的鸟群, 繁殖会增加鸟群中鸟的数量.</p>
@@ -465,8 +461,6 @@
 <p>如果加入一点点数学知识, 就可以继续简化最后一段计算代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 应用同一律去掉多余运算, 在应用分配率</span></span><br><span class="line">multiply(flock_b, add(flock_a, flock_a))</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
 
@@ -475,6 +469,12 @@
     
     
     
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/qrcode.jpg" alt="赵浩程 wechat" style="width: 200px; max-width: 100%;">
+  <div>扫一扫关注我的订阅号</div>
+</div>
 
     
 
@@ -487,14 +487,22 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/函数式编程/" rel="tag"># 函数式编程</a>
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -504,14 +512,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -531,8 +540,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -656,6 +674,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个愚蠢的例子"><span class="nav-number">2.</span> <span class="nav-text">一个愚蠢的例子</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -784,6 +819,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -799,6 +838,8 @@
 
   
 
+
+  
 
 
   
