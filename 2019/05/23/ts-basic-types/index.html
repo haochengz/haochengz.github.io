@@ -100,18 +100,18 @@
 
 
 
-  <meta name="description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
-<meta name="keywords" content="函数式编程,Javascript">
+  <meta name="description" content="基础类型简介为了使程序能够进行最基础的操作, 我们需要一些最基础的数据单元: 数字, 字符串, 结构, 布尔值等. 在Typescript中我们除了支持和Javascript中相同的所有类型, 还包括了更方便的枚举类型. 布尔值这是最基础的一个数据类型, 其值只能是true/false, 在Typescript和Javascript中被称为布尔值. 1let isDone: boolean = f">
+<meta name="keywords" content="typescript,language,翻译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数式编程第一篇 基础概念">
-<meta property="og:url" content="http://blog.neverland.tech/2019/05/23/fp-basic/index.html">
+<meta property="og:title" content="ts-basic-types">
+<meta property="og:url" content="http://blog.neverland.tech/2019/05/23/ts-basic-types/index.html">
 <meta property="og:site_name" content="Aspire">
-<meta property="og:description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
+<meta property="og:description" content="基础类型简介为了使程序能够进行最基础的操作, 我们需要一些最基础的数据单元: 数字, 字符串, 结构, 布尔值等. 在Typescript中我们除了支持和Javascript中相同的所有类型, 还包括了更方便的枚举类型. 布尔值这是最基础的一个数据类型, 其值只能是true/false, 在Typescript和Javascript中被称为布尔值. 1let isDone: boolean = f">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-23T07:18:20.579Z">
+<meta property="og:updated_time" content="2019-05-23T08:57:41.782Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数式编程第一篇 基础概念">
-<meta name="twitter:description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
+<meta name="twitter:title" content="ts-basic-types">
+<meta name="twitter:description" content="基础类型简介为了使程序能够进行最基础的操作, 我们需要一些最基础的数据单元: 数字, 字符串, 结构, 布尔值等. 在Typescript中我们除了支持和Javascript中相同的所有类型, 还包括了更方便的枚举类型. 布尔值这是最基础的一个数据类型, 其值只能是true/false, 在Typescript和Javascript中被称为布尔值. 1let isDone: boolean = f">
 
 
 
@@ -119,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.neverland.tech/2019/05/23/fp-basic/">
+  <link rel="canonical" href="http://blog.neverland.tech/2019/05/23/ts-basic-types/">
 
 
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title>函数式编程第一篇 基础概念 | Aspire</title>
+  <title>ts-basic-types | Aspire</title>
   
 
 
@@ -349,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/23/fp-basic/">
+    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/23/ts-basic-types/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵浩程">
@@ -366,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">函数式编程第一篇 基础概念
+          <h1 class="post-title" itemprop="name headline">ts-basic-types
 
               
             
@@ -392,7 +392,7 @@
                 
               
 
-              <time title="创建时间：2019-05-23 03:46:17 / 修改时间：15:18:20" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 16:36:24 / 修改时间：16:57:41" itemprop="dateCreated datePublished" datetime="2019-05-23T16:36:24+08:00">2019-05-23</time>
             
 
             
@@ -414,7 +414,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/函数式编程/" itemprop="url" rel="index"><span itemprop="name">函数式编程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/typescript-官方文档翻译/" itemprop="url" rel="index"><span itemprop="name">typescript 官方文档翻译</span></a></span>
 
                 
                 
@@ -449,22 +449,17 @@
       
 
       
-        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式.</p>
-<p>如果你之前并不熟悉函数式编程, 仅仅使用面向对象的方式去编写程序. 而且你已经写过一些中等规模的应用程序. 那么你很有可能在可变状态(mutable state), 无限制副作用(unrestricted side effects)和无原则设计(unprincipled design)中遇到了麻烦.</p>
-<p>写代码需要遵循一定的原则, 例如我们已经有了很多耳熟能详的原则: DRY(Don’t repeat yourself), 高内聚低耦合(loose coupling high cohesion), YAGNI(Ya ain’t gonna need it), 最小意外原则(Principle of least surprise), 单一责任原则(Single responsibility)等等. 这些通用的原则适应范围广泛, 编码时应当时刻考虑它们. </p>
-<h1 id="一个愚蠢的例子"><a href="#一个愚蠢的例子" class="headerlink" title="一个愚蠢的例子"></a>一个愚蠢的例子</h1><p>考虑这么一个程序, 鸟群合并会变成一个更大的鸟群, 繁殖会增加鸟群中鸟的数量.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Flock = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.seagulls = n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Flock.prototype.conjoin = <span class="function"><span class="keyword">function</span>(<span class="params">other</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.seagulls += other.seagulls;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Flock.prototype.breed = <span class="function"><span class="keyword">function</span>(<span class="params">other</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.seagulls = <span class="keyword">this</span>.seagulls * other.seagulls;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="keyword">new</span> Flock(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="keyword">new</span> Flock(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="keyword">new</span> Flock(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = flock_a.conjoin(flock_c).breed(flock_b).conjoin(flock_a.breed(flock_b)).seagulls;</span><br><span class="line"><span class="comment">//=&gt; 32</span></span><br></pre></td></tr></table></figure>
-<p>这是一个非常糟糕的程序, 鸟群的内部状态极难跟踪, 非常容易出错, 计算的结果也确实是错的. 如果按照这种方式写程序, 当程序规模变大后, 其复杂度是不可想象的. 而下面一段程序演示了如何使用函数式的写法:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> conjoin = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y &#125;;</span><br><span class="line"><span class="keyword">var</span> breed = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x * y &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = conjoin(breed(flock_b, conjoin(flock_a, flock_c), breed(flock_a, flock_b)));</span><br><span class="line"><span class="comment">//=&gt; 16</span></span><br></pre></td></tr></table></figure>
-<p>这次除了代码少了很多外, 也得到了正确的结果. 最重要的是此时的变量没有了内部状态, 而且更易读了. 如果仔细的看上一段代码你应该可以发现它不过是进行了简单的加和乘的运算而已.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y &#125;;</span><br><span class="line"><span class="keyword">var</span> multiply = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x * y &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(multiply(flock_b, add(flock_a, flock_c), multiply(flock_a, flock_b)));</span><br><span class="line"><span class="comment">//=&gt; 16</span></span><br></pre></td></tr></table></figure>
-<p>如果加入一点点数学知识, 就可以继续简化最后一段计算代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 应用同一律去掉多余运算, 再应用分配率</span></span><br><span class="line">multiply(flock_b, add(flock_a, flock_a))</span><br></pre></td></tr></table></figure>
-<h1 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h1><p>当我们说函数是一等公民时所表示的含义是它和其他对象一样, 没什么特殊的, 应该向对待其他数据类型一样的对待它们–存储在数组里, 当作参数传递等. 这是Javascript的基础概念, 然后在Github上随处可以看到对这个重要特性的无视.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">const</span> greeting = <span class="function"><span class="params">name</span> =&gt;</span> hi(name);</span><br></pre></td></tr></table></figure>
-<p>greeting函数在hi函数外部非常多余的包裹了一层. 在函数式编程中应该这么写:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">const</span> greeting = hi;</span><br></pre></td></tr></table></figure>
-<p>将hi函数赋值给greeting, 记住函数是一等公民, 应该可以配任意的赋值给变量.</p>
+        <h1 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>为了使程序能够进行最基础的操作, 我们需要一些最基础的数据单元: 数字, 字符串, 结构, 布尔值等. 在Typescript中我们除了支持和Javascript中相同的所有类型, 还包括了更方便的枚举类型.</p>
+<h3 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h3><p>这是最基础的一个数据类型, 其值只能是true/false, 在Typescript和Javascript中被称为布尔值.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>像在Javascirpt中一样, Typescript中的所有数字都是浮点值. 其类型就是number. number类型除了支持十六进制和十进制的字面量外, Typescript引入了ECMAScript 2015标准中的二进制和八进制字面量表示.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> decimal: <span class="built_in">number</span> = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">let</span> hex: <span class="built_in">number</span> = <span class="number">0xf00d</span>;</span><br><span class="line"><span class="keyword">let</span> binary: <span class="built_in">number</span> = <span class="number">0b1010</span>;</span><br><span class="line"><span class="keyword">let</span> octal: <span class="built_in">number</span> = <span class="number">0o744</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>对于使用Javascript编写web页面或类服务器端程序而言另一个最基础的部分就是操作字符数据. 和多数语言类似, 我们使用string类型表示字符串数据类型. 和Javascript一样, Typescript使用双引号(“)或单引号(‘)包裹字符串的值.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color: <span class="built_in">string</span> = <span class="string">"blue"</span>;</span><br><span class="line">color = <span class="string">'red'</span>;</span><br></pre></td></tr></table></figure>
+<p>也可以使用模板字符串, 它能跨越多行且解析内部的程序表达式. 这种字符串由反引号(`)包裹, 内部的表达式写法为: ‘${ expr }’.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fullName: <span class="built_in">string</span> = <span class="string">'Bob Bobbington'</span>;</span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span>: <span class="number">37</span>;</span><br><span class="line"><span class="keyword">let</span> sentence: <span class="built_in">string</span> = <span class="string">`Hello, my name is <span class="subst">$&#123;fullName&#125;</span>.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">I'll be <span class="subst">$&#123; age + 1 &#125;</span> years old next month.`</span>;</span><br></pre></td></tr></table></figure>
+<p>下面的一段代码则是使用字符串拼接的方法实现上方代码中的模板字符串:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sentence: <span class="built_in">string</span> = <span class="string">"Hello, my name is "</span> + fullName + <span class="string">".\n\n"</span> + <span class="string">"I'll be "</span> + (age + <span class="number">1</span>) + <span class="string">" years old next month."</span>;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -494,9 +489,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/函数式编程/" rel="tag"># 函数式编程</a>
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
           
-            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+            <a href="/tags/language/" rel="tag"># language</a>
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
           
         </div>
       
@@ -509,15 +506,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/23/fp-basic/" rel="next" title="函数式编程第一篇 基础概念">
+                <i class="fa fa-chevron-left"></i> 函数式编程第一篇 基础概念
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/23/ts-basic-types/" rel="prev" title="ts-basic-types">
-                ts-basic-types <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -714,7 +711,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个愚蠢的例子"><span class="nav-number">2.</span> <span class="nav-text">一个愚蠢的例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数是一等公民"><span class="nav-number">3.</span> <span class="nav-text">函数是一等公民</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础类型"><span class="nav-number">1.</span> <span class="nav-text">基础类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔值"><span class="nav-number">1.1.1.</span> <span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字"><span class="nav-number">1.1.2.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.1.3.</span> <span class="nav-text">字符串</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
