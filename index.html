@@ -394,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2019-05-23 03:46:17 / 修改时间：13:04:38" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 03:46:17 / 修改时间：15:18:20" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
             
 
             
@@ -464,7 +464,12 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y &#125;;</span><br><span class="line"><span class="keyword">var</span> multiply = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x * y &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(multiply(flock_b, add(flock_a, flock_c), multiply(flock_a, flock_b)));</span><br><span class="line"><span class="comment">//=&gt; 16</span></span><br></pre></td></tr></table></figure>
 <p>如果加入一点点数学知识, 就可以继续简化最后一段计算代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 应用同一律去掉多余运算, 再应用分配率</span></span><br><span class="line">multiply(flock_b, add(flock_a, flock_a))</span><br></pre></td></tr></table></figure>
-<h1 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h1>
+<h1 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h1><p>当我们说函数是一等公民时所表示的含义是它和其他对象一样, 没什么特殊的, 应该向对待其他数据类型一样的对待它们–存储在数组里, 当作参数传递等. 这是Javascript的基础概念, 然后在Github上随处可以看到对这个重要特性的无视.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">const</span> greeting = <span class="function"><span class="params">name</span> =&gt;</span> hi(name);</span><br></pre></td></tr></table></figure>
+<p>greeting函数在hi函数外部非常多余的包裹了一层. 在函数式编程中应该这么写:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">const</span> greeting = hi;</span><br></pre></td></tr></table></figure>
+<p>将hi函数赋值给greeting, 记住函数是一等公民, 应该可以配任意的赋值给变量.</p>
+
           
         
       
