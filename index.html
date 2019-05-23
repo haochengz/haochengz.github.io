@@ -76,7 +76,7 @@
     root: '/',
     scheme: 'Muse',
     version: '7.1.1',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":true},
     back2top: true,
     back2top_sidebar: false,
     fancybox: false,
@@ -394,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2019-05-23 03:46:17 / 修改时间：04:53:11" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 03:46:17 / 修改时间：13:04:38" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
             
 
             
@@ -463,8 +463,8 @@
 <p>这次除了代码少了很多外, 也得到了正确的结果. 最重要的是此时的变量没有了内部状态, 而且更易读了. 如果仔细的看上一段代码你应该可以发现它不过是进行了简单的加和乘的运算而已.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y &#125;;</span><br><span class="line"><span class="keyword">var</span> multiply = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x * y &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(multiply(flock_b, add(flock_a, flock_c), multiply(flock_a, flock_b)));</span><br><span class="line"><span class="comment">//=&gt; 16</span></span><br></pre></td></tr></table></figure>
 <p>如果加入一点点数学知识, 就可以继续简化最后一段计算代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 应用同一律去掉多余运算, 在应用分配率</span></span><br><span class="line">multiply(flock_b, add(flock_a, flock_a))</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 应用同一律去掉多余运算, 再应用分配率</span></span><br><span class="line">multiply(flock_b, add(flock_a, flock_a))</span><br></pre></td></tr></table></figure>
+<h1 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h1>
           
         
       
@@ -662,6 +662,8 @@
 
     </div>
   </aside>
+  
+    <div id="sidebar-dimmer"></div>
   
 
 
