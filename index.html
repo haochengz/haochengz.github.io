@@ -349,6 +349,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/24/fp-pure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵浩程">
+      <meta itemprop="description" content="随便写写">
+      <meta itemprop="image" content="/images/my-avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aspire">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/24/fp-pure/" class="post-title-link" itemprop="url">函数式编程 第二篇 纯函数</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-24 12:37:17 / 修改时间：14:18:58" itemprop="dateCreated datePublished" datetime="2019-05-24T12:37:17+08:00">2019-05-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/函数式编程/" itemprop="url" rel="index"><span itemprop="name">函数式编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="纯函数的好处"><a href="#纯函数的好处" class="headerlink" title="纯函数的好处"></a>纯函数的好处</h1><h2 id="再次强调”纯”"><a href="#再次强调”纯”" class="headerlink" title="再次强调”纯”"></a>再次强调”纯”</h2><p>首先什么是纯函数?</p>
+<blockquote>
+<p>纯函数是这样一种函数, 即相同的输入, 永远会得到相同的输出, 而且没有任何可观察的副作用.</p>
+</blockquote>
+<p>比如<code>slice</code>和<code>splice</code>这两个函数, 它们作用类似但各自的方式却不大相同. <code>slice</code>函数符合纯函数的定义因为它确保了相同的输入能得到相同的输出. 而<code>splice</code>却会修改传入的那个数组; 这样就产生了可观察到的副作用, 即这个数组永久的改变了.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// not Pure</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [4, 5]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; []</span></span><br></pre></td></tr></table></figure>
+<p>在函数式编程中我们需要的是可靠的, 每次都能返回相同结果的函数, 而不是会改变数据的函数.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not Pure</span></span><br><span class="line"><span class="keyword">var</span> minimum = <span class="number">21</span>;</span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= minimum;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> minimum = <span class="number">21</span>;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= minimum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面例子那个不纯的版本中, <code>checkAge</code>的结果取决于外部变量<code>minimum</code>. 也就是说它取决于系统状态; 由于引入了外部环境, 从而增加了认知负荷.</p>
+<p>另一方面使用纯函数的形式, 函数就能做到自给自足. 也可以使<code>minimum</code>成为一个不可变对象, 这样就保留了纯粹性. 为了实现这个效果可以这样做:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> immutableState = <span class="built_in">Object</span>.freeze(&#123;</span><br><span class="line">  minimum: <span class="number">21</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="副作用有哪些"><a href="#副作用有哪些" class="headerlink" title="副作用有哪些"></a>副作用有哪些</h2><p>现在来研究一下副作用. 首先看作用, 我们可以理解为一切除结果计算之外发生的事情. 那么副作用呢?</p>
+<blockquote>
+<p>副作用是在计算结果的过程中, 系统状态的一种变化, 或者与外部世界进行的可观察的交互.</p>
+</blockquote>
+<p>那么副作用就包括但不限于以下所列:</p>
+<ul>
+<li>更改文件系统</li>
+<li>往数据库插入记录</li>
+<li>发送一个http请求</li>
+<li>改变数据</li>
+<li>打印/Log</li>
+<li>获取用户输入</li>
+<li>DOM查询</li>
+<li>访问系统状态</li>
+</ul>
+<p>这个列表还可以继续写下去. 概括的说, 只要跟函数外部环境有交互的行为都是副作用. 这可能会让你怀疑无副作用编程的可能性. 但函数式编程的只要哲学就是假定副作用是造成不当行为的主要原因. 不过这并不是说要禁止一切副作用, 后面会说到functor和monad, 这将教会我们如何控制副作用. 我们现在来了解一下为什么我们坚持相同输入获得相同输出原则. 这就需要复习一下八年级数学了.</p>
+<h2 id="八年级数学"><a href="#八年级数学" class="headerlink" title="八年级数学"></a>八年级数学</h2><blockquote>
+<p>函数是不同数值之间的特殊关系: 每一个输入值返回且只返回一个输出值.</p>
+</blockquote>
+<p>也就是说函数只是两个数值之间的关系: 输入到输出. 尽管每个输入只能得到一个输出, 但不同的输入却可能得到相同的输出. 如下图展示了<code>x</code>到<code>y</code>的函数关系:</p>
+<p><img src="/img/function-sets.gif" alt="函数关系"></p>
+<p>相反, 下面这张图就不是一种函数关系, 因为<code>5</code>指向了多个输出.</p>
+<p><img src="/img/relation-not-function.gif" alt="不是函数关系"></p>
+<p>函数可以描述为一个集合, 这个集合里的内容是(输入, 输出)对: [(1, 1), (2, 4), (3, 9)]</p>
+<p>或者一张表</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>9</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<p>或者一个函数曲线图:</p>
+<p><img src="/img/fn_graph.png" alt="函数曲线图"></p>
+<p>纯函数就是数学上的函数, 而且是函数式编程的全部. 使用这些纯函数可以带来大量的好处, 让我们来看一下为什么要不遗余力的保留函数的纯粹性.</p>
+<h2 id="最求纯的理由"><a href="#最求纯的理由" class="headerlink" title="最求纯的理由"></a>最求纯的理由</h2><h3 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h3><p>纯函数总能根据输入来做缓存. 实现缓存的一种典型方式是<code>memoize</code>技术:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sq = memoize(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">sq(<span class="number">4</span>); <span class="comment">//=&gt; 16</span></span><br><span class="line">sq(<span class="number">4</span>); <span class="comment">//=&gt; 16, 未计算, 从缓存中读取</span></span><br><span class="line"></span><br><span class="line">sq(<span class="number">5</span>); <span class="comment">//=&gt; 25</span></span><br><span class="line">sq(<span class="number">5</span>); <span class="comment">//=&gt; 25, 未计算, 从缓存中读取</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现</span></span><br><span class="line"><span class="keyword">var</span> memoize = <span class="function"><span class="keyword">function</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> argStr = <span class="built_in">JSON</span>.stringify(<span class="built_in">arguments</span>);</span><br><span class="line">    cache[argStr] = cache[argStr] || f.apply(f, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> cache[argStr];</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>甚至可以通过延迟执行的方式讲一个不纯的函数转换为纯函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pureHttpCall = memoize(<span class="function"><span class="keyword">function</span>(<span class="params">url, params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $.getJSON(url, params);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面那个函数有趣的地方在于并没有真正的发送http请求, 只是返回了一个发送http请求的函数, 调用这个函数时才会发出请求. 它之所以是纯函数是因为相同的输入下它总是返回同一个发送http请求的函数.</p>
+<h3 id="可移植性-自文档化"><a href="#可移植性-自文档化" class="headerlink" title="可移植性/自文档化"></a>可移植性/自文档化</h3><p>纯函数自给自足, 它所需要的东西都能轻易获得. 纯函数依赖明确, 便于观察和理解, 没有任何小动作.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not Pure</span></span><br><span class="line"><span class="keyword">var</span> signUp = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = saveUser(attrs);</span><br><span class="line">  welcomeUser(user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> saveUser = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = Db.save(attrs);</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> welcomeUser = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  Email(user);</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line"><span class="keyword">var</span> signUp = <span class="function"><span class="keyword">function</span>(<span class="params">Db, Email, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> user = saveUser(Db, attrs);</span><br><span class="line">    welcomeUser(Email, user);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> saveUser = <span class="function"><span class="keyword">function</span>(<span class="params">Db, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> welcomeUser = <span class="function"><span class="keyword">function</span>(<span class="params">Email, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面这个例子表明, 通过注入依赖, 或者将依赖当参数传入, 程序也变得更加灵活. 在javascript中可移植性性意味着将函数序列化(serializing), 并通过socket发送. 也以为着代码能够在web workers中运行.</p>
+<p>我最喜欢的名言之一是 Erlang 语言的作者 Joe Armstrong 说的这句话：“面向对象语言的问题是，它们永远都要随身携带那些隐式的环境。你只需要一个香蕉，但却得到一个拿着香蕉的大猩猩…以及整个丛林”。</p>
+<h3 id="可测试性"><a href="#可测试性" class="headerlink" title="可测试性"></a>可测试性</h3><p>纯函数使测试更加容易. 我们不需要伪造一个支付网关, 或者每次测试开始之前都要配置, 之后断言状态. 只需简单的给函数一个输入, 然后断言输出就好了.</p>
+<h3 id="合理性"><a href="#合理性" class="headerlink" title="合理性"></a>合理性</h3><p>很多人相信纯函数最大的好处是引用透明性. 如果一段代码可以替换成它所执行得到的结果, 而且是在不改变整个程序行为的前提下替换的, 那么我们说这段代码是引用透明的. 而对于纯函数, 它总能保证相同输入得到相同结果, 这就保证了引用透明性.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Immutable = <span class="built_in">require</span>(<span class="string">'immutable'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> decrementHP = <span class="function"><span class="keyword">function</span>(<span class="params">player</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> player.set(<span class="string">'hp'</span>, player.hp - <span class="number">1</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> isSameTeam = <span class="function"><span class="keyword">function</span>(<span class="params">player1, player2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> player1.team === player2.team;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(isSameTeam(player, target)) &#123;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> jobe = Immutable.Map(</span><br><span class="line">  &#123;<span class="attr">name</span>: <span class="string">'jobe'</span>, <span class="attr">hp</span>: <span class="number">20</span>, <span class="attr">team</span>: <span class="string">"red"</span>&#125;</span><br><span class="line">)</span><br><span class="line"><span class="keyword">var</span> michael = Immutable.Map(</span><br><span class="line">	&#123;<span class="attr">name</span>: <span class="string">'michael'</span>, <span class="attr">hp</span>: <span class="number">20</span>, <span class="attr">team</span>: <span class="string">'green'</span>&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">punch(jobe, michael);</span><br><span class="line"><span class="comment">//=&gt; Immutable.Map(&#123;name:'michael', hp: 19, team: 'green'&#125;)</span></span><br></pre></td></tr></table></figure>
+<p><code>decrement</code>, <code>isSameTeam</code>和<code>punch</code>都是纯函数, 所以引用是透明的. 我们可以使用一种等式推导的技术来分析代码. 所谓等式推导就是一对一的替换, 手动执行相关代码, 借助引用透明特性来剖析代码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先内联掉isSameTeam函数</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(player.team === target.team) &#123;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由于是不可变数据, 因此team字段可以替换为实际的值</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="string">'red'</span> === <span class="string">'green'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 替换为值后就可以看出if语句可以删除了</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最后在内联decrementHP函数</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> target.set(<span class="string">'hp'</span>, target.hp - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>等式推导对于分析, 理解和重构代码非常重要.</p>
+<h3 id="并行代码"><a href="#并行代码" class="headerlink" title="并行代码"></a>并行代码</h3><p>最后决定性的一点, 我们可以并行任意纯函数. 因为纯函数根本不访问任何共享内存, 也不会引入副作用而进入竞争态. </p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>纯函数本身是不同凡响的, 我们将尽力将所有函数写为纯函数. 但如果手头没有一些工具支持的话, 纯函数写起来会比较费力. 我们需要到处传递参数, 因此通过下一篇介绍的curry新工具辅助我们更容易的实现纯函数.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/23/ts-basic-types/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -394,12 +636,24 @@
                 
               
 
-              <time title="创建时间：2019-05-23 16:36:24 / 修改时间：19:53:49" itemprop="dateCreated datePublished" datetime="2019-05-23T16:36:24+08:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 16:36:24" itemprop="dateCreated datePublished" datetime="2019-05-23T16:36:24+08:00">2019-05-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-24 02:17:32" itemprop="dateModified" datetime="2019-05-24T02:17:32+08:00">2019-05-24</time>
               
             
           </span>
@@ -516,7 +770,7 @@
 <p>或者使用as语法:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> someValue: <span class="built_in">any</span> = <span class="string">'this is a string'</span>;</span><br><span class="line"><span class="keyword">let</span> strLength: <span class="built_in">number</span> = (someValue <span class="keyword">as</span> <span class="built_in">string</span>).length;</span><br></pre></td></tr></table></figure>
 <p>以上两个示例是相同的.选择哪一种完全是个人喜好; 但在JSX中编写Typescript时只能用as语法.</p>
-<h2 id="关于let"><a href="#关于let" class="headerlink" title="关于let"></a>关于let</h2><p>到现在你可能已经注意到, 我们是’let’关键字而不是你可能更熟悉的Javascript的’var’关键字. ‘let’实际上是Javascript的新组成, 而Typescript实现了它. 我们稍后会讨论细节部分, 但通过使用’let’减少了Javascript中的很多问题, 因此只要可能你应该一直使用’let’而不是’var’.</p>
+<h2 id="关于let"><a href="#关于let" class="headerlink" title="关于let"></a>关于let</h2><p>到现在你可能已经注意到, 我们使用<code>let</code>关键字而不是你可能更熟悉的Javascript的<code>var</code>关键字. <code>let</code>实际上是Javascript的新组成, 而Typescript实现了它. 我们稍后会讨论细节部分, 但通过使用<code>let</code>减少了Javascript中的很多问题, 因此只要可能你应该一直使用<code>let</code>而不是<code>var</code>.</p>
 <hr>
 <p>本篇文章翻译自Typescript官方文档, 可点击查看<a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" rel="noopener">原文</a></p>
 
@@ -595,7 +849,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/23/fp-basic/" class="post-title-link" itemprop="url">函数式编程第一篇 基础概念</a>
+                <a href="/2019/05/23/fp-basic/" class="post-title-link" itemprop="url">函数式编程 第一篇 基础概念</a>
               
             
           </h1>
@@ -620,12 +874,24 @@
                 
               
 
-              <time title="创建时间：2019-05-23 03:46:17 / 修改时间：15:18:20" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 03:46:17" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-24 12:48:20" itemprop="dateModified" datetime="2019-05-24T12:48:20+08:00">2019-05-24</time>
               
             
           </span>
@@ -780,7 +1046,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -830,7 +1096,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

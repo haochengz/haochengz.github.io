@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="纯函数的好处再次强调”纯”首先什么是纯函数?  纯函数是这样一种函数, 即相同的输入, 永远会得到相同的输出, 而且没有任何可观察的副作用.  比如slice和splice这两个函数, 它们作用类似但各自的方式却不大相同. slice函数符合纯函数的定义因为它确保了相同的输入能得到相同的输出. 而splice却会修改传入的那个数组; 这样就产生了可观察到的副作用, 即这个数组永久的改变了. 123">
+<meta name="keywords" content="函数式编程,Javascript,编程范式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程 第二篇 纯函数">
+<meta property="og:url" content="http://blog.neverland.tech/2019/05/24/fp-pure/index.html">
+<meta property="og:site_name" content="Aspire">
+<meta property="og:description" content="纯函数的好处再次强调”纯”首先什么是纯函数?  纯函数是这样一种函数, 即相同的输入, 永远会得到相同的输出, 而且没有任何可观察的副作用.  比如slice和splice这两个函数, 它们作用类似但各自的方式却不大相同. slice函数符合纯函数的定义因为它确保了相同的输入能得到相同的输出. 而splice却会修改传入的那个数组; 这样就产生了可观察到的副作用, 即这个数组永久的改变了. 123">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.neverland.tech/img/function-sets.gif">
+<meta property="og:image" content="http://blog.neverland.tech/img/relation-not-function.gif">
+<meta property="og:image" content="http://blog.neverland.tech/img/fn_graph.png">
+<meta property="og:updated_time" content="2019-05-24T06:18:58.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式编程 第二篇 纯函数">
+<meta name="twitter:description" content="纯函数的好处再次强调”纯”首先什么是纯函数?  纯函数是这样一种函数, 即相同的输入, 永远会得到相同的输出, 而且没有任何可观察的副作用.  比如slice和splice这两个函数, 它们作用类似但各自的方式却不大相同. slice函数符合纯函数的定义因为它确保了相同的输入能得到相同的输出. 而splice却会修改传入的那个数组; 这样就产生了可观察到的副作用, 即这个数组永久的改变了. 123">
+<meta name="twitter:image" content="http://blog.neverland.tech/img/function-sets.gif">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.neverland.tech/2019/05/24/fp-pure/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>函数式编程 第二篇 纯函数 | Aspire</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aspire</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">我的知识库</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/24/fp-pure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵浩程">
+      <meta itemprop="description" content="随便写写">
+      <meta itemprop="image" content="/images/my-avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aspire">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">函数式编程 第二篇 纯函数
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-24 12:37:17 / 修改时间：14:18:58" itemprop="dateCreated datePublished" datetime="2019-05-24T12:37:17+08:00">2019-05-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/函数式编程/" itemprop="url" rel="index"><span itemprop="name">函数式编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="纯函数的好处"><a href="#纯函数的好处" class="headerlink" title="纯函数的好处"></a>纯函数的好处</h1><h2 id="再次强调”纯”"><a href="#再次强调”纯”" class="headerlink" title="再次强调”纯”"></a>再次强调”纯”</h2><p>首先什么是纯函数?</p>
+<blockquote>
+<p>纯函数是这样一种函数, 即相同的输入, 永远会得到相同的输出, 而且没有任何可观察的副作用.</p>
+</blockquote>
+<p>比如<code>slice</code>和<code>splice</code>这两个函数, 它们作用类似但各自的方式却不大相同. <code>slice</code>函数符合纯函数的定义因为它确保了相同的输入能得到相同的输出. 而<code>splice</code>却会修改传入的那个数组; 这样就产生了可观察到的副作用, 即这个数组永久的改变了.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// not Pure</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [4, 5]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; []</span></span><br></pre></td></tr></table></figure>
+<p>在函数式编程中我们需要的是可靠的, 每次都能返回相同结果的函数, 而不是会改变数据的函数.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not Pure</span></span><br><span class="line"><span class="keyword">var</span> minimum = <span class="number">21</span>;</span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= minimum;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> minimum = <span class="number">21</span>;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= minimum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面例子那个不纯的版本中, <code>checkAge</code>的结果取决于外部变量<code>minimum</code>. 也就是说它取决于系统状态; 由于引入了外部环境, 从而增加了认知负荷.</p>
+<p>另一方面使用纯函数的形式, 函数就能做到自给自足. 也可以使<code>minimum</code>成为一个不可变对象, 这样就保留了纯粹性. 为了实现这个效果可以这样做:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> immutableState = <span class="built_in">Object</span>.freeze(&#123;</span><br><span class="line">  minimum: <span class="number">21</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="副作用有哪些"><a href="#副作用有哪些" class="headerlink" title="副作用有哪些"></a>副作用有哪些</h2><p>现在来研究一下副作用. 首先看作用, 我们可以理解为一切除结果计算之外发生的事情. 那么副作用呢?</p>
+<blockquote>
+<p>副作用是在计算结果的过程中, 系统状态的一种变化, 或者与外部世界进行的可观察的交互.</p>
+</blockquote>
+<p>那么副作用就包括但不限于以下所列:</p>
+<ul>
+<li>更改文件系统</li>
+<li>往数据库插入记录</li>
+<li>发送一个http请求</li>
+<li>改变数据</li>
+<li>打印/Log</li>
+<li>获取用户输入</li>
+<li>DOM查询</li>
+<li>访问系统状态</li>
+</ul>
+<p>这个列表还可以继续写下去. 概括的说, 只要跟函数外部环境有交互的行为都是副作用. 这可能会让你怀疑无副作用编程的可能性. 但函数式编程的只要哲学就是假定副作用是造成不当行为的主要原因. 不过这并不是说要禁止一切副作用, 后面会说到functor和monad, 这将教会我们如何控制副作用. 我们现在来了解一下为什么我们坚持相同输入获得相同输出原则. 这就需要复习一下八年级数学了.</p>
+<h2 id="八年级数学"><a href="#八年级数学" class="headerlink" title="八年级数学"></a>八年级数学</h2><blockquote>
+<p>函数是不同数值之间的特殊关系: 每一个输入值返回且只返回一个输出值.</p>
+</blockquote>
+<p>也就是说函数只是两个数值之间的关系: 输入到输出. 尽管每个输入只能得到一个输出, 但不同的输入却可能得到相同的输出. 如下图展示了<code>x</code>到<code>y</code>的函数关系:</p>
+<p><img src="/img/function-sets.gif" alt="函数关系"></p>
+<p>相反, 下面这张图就不是一种函数关系, 因为<code>5</code>指向了多个输出.</p>
+<p><img src="/img/relation-not-function.gif" alt="不是函数关系"></p>
+<p>函数可以描述为一个集合, 这个集合里的内容是(输入, 输出)对: [(1, 1), (2, 4), (3, 9)]</p>
+<p>或者一张表</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>9</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<p>或者一个函数曲线图:</p>
+<p><img src="/img/fn_graph.png" alt="函数曲线图"></p>
+<p>纯函数就是数学上的函数, 而且是函数式编程的全部. 使用这些纯函数可以带来大量的好处, 让我们来看一下为什么要不遗余力的保留函数的纯粹性.</p>
+<h2 id="最求纯的理由"><a href="#最求纯的理由" class="headerlink" title="最求纯的理由"></a>最求纯的理由</h2><h3 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h3><p>纯函数总能根据输入来做缓存. 实现缓存的一种典型方式是<code>memoize</code>技术:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sq = memoize(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">sq(<span class="number">4</span>); <span class="comment">//=&gt; 16</span></span><br><span class="line">sq(<span class="number">4</span>); <span class="comment">//=&gt; 16, 未计算, 从缓存中读取</span></span><br><span class="line"></span><br><span class="line">sq(<span class="number">5</span>); <span class="comment">//=&gt; 25</span></span><br><span class="line">sq(<span class="number">5</span>); <span class="comment">//=&gt; 25, 未计算, 从缓存中读取</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现</span></span><br><span class="line"><span class="keyword">var</span> memoize = <span class="function"><span class="keyword">function</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> argStr = <span class="built_in">JSON</span>.stringify(<span class="built_in">arguments</span>);</span><br><span class="line">    cache[argStr] = cache[argStr] || f.apply(f, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span> cache[argStr];</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>甚至可以通过延迟执行的方式讲一个不纯的函数转换为纯函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pureHttpCall = memoize(<span class="function"><span class="keyword">function</span>(<span class="params">url, params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $.getJSON(url, params);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面那个函数有趣的地方在于并没有真正的发送http请求, 只是返回了一个发送http请求的函数, 调用这个函数时才会发出请求. 它之所以是纯函数是因为相同的输入下它总是返回同一个发送http请求的函数.</p>
+<h3 id="可移植性-自文档化"><a href="#可移植性-自文档化" class="headerlink" title="可移植性/自文档化"></a>可移植性/自文档化</h3><p>纯函数自给自足, 它所需要的东西都能轻易获得. 纯函数依赖明确, 便于观察和理解, 没有任何小动作.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not Pure</span></span><br><span class="line"><span class="keyword">var</span> signUp = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = saveUser(attrs);</span><br><span class="line">  welcomeUser(user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> saveUser = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = Db.save(attrs);</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> welcomeUser = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  Email(user);</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line"><span class="keyword">var</span> signUp = <span class="function"><span class="keyword">function</span>(<span class="params">Db, Email, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> user = saveUser(Db, attrs);</span><br><span class="line">    welcomeUser(Email, user);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> saveUser = <span class="function"><span class="keyword">function</span>(<span class="params">Db, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> welcomeUser = <span class="function"><span class="keyword">function</span>(<span class="params">Email, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面这个例子表明, 通过注入依赖, 或者将依赖当参数传入, 程序也变得更加灵活. 在javascript中可移植性性意味着将函数序列化(serializing), 并通过socket发送. 也以为着代码能够在web workers中运行.</p>
+<p>我最喜欢的名言之一是 Erlang 语言的作者 Joe Armstrong 说的这句话：“面向对象语言的问题是，它们永远都要随身携带那些隐式的环境。你只需要一个香蕉，但却得到一个拿着香蕉的大猩猩…以及整个丛林”。</p>
+<h3 id="可测试性"><a href="#可测试性" class="headerlink" title="可测试性"></a>可测试性</h3><p>纯函数使测试更加容易. 我们不需要伪造一个支付网关, 或者每次测试开始之前都要配置, 之后断言状态. 只需简单的给函数一个输入, 然后断言输出就好了.</p>
+<h3 id="合理性"><a href="#合理性" class="headerlink" title="合理性"></a>合理性</h3><p>很多人相信纯函数最大的好处是引用透明性. 如果一段代码可以替换成它所执行得到的结果, 而且是在不改变整个程序行为的前提下替换的, 那么我们说这段代码是引用透明的. 而对于纯函数, 它总能保证相同输入得到相同结果, 这就保证了引用透明性.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Immutable = <span class="built_in">require</span>(<span class="string">'immutable'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> decrementHP = <span class="function"><span class="keyword">function</span>(<span class="params">player</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> player.set(<span class="string">'hp'</span>, player.hp - <span class="number">1</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> isSameTeam = <span class="function"><span class="keyword">function</span>(<span class="params">player1, player2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> player1.team === player2.team;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(isSameTeam(player, target)) &#123;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> jobe = Immutable.Map(</span><br><span class="line">  &#123;<span class="attr">name</span>: <span class="string">'jobe'</span>, <span class="attr">hp</span>: <span class="number">20</span>, <span class="attr">team</span>: <span class="string">"red"</span>&#125;</span><br><span class="line">)</span><br><span class="line"><span class="keyword">var</span> michael = Immutable.Map(</span><br><span class="line">	&#123;<span class="attr">name</span>: <span class="string">'michael'</span>, <span class="attr">hp</span>: <span class="number">20</span>, <span class="attr">team</span>: <span class="string">'green'</span>&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">punch(jobe, michael);</span><br><span class="line"><span class="comment">//=&gt; Immutable.Map(&#123;name:'michael', hp: 19, team: 'green'&#125;)</span></span><br></pre></td></tr></table></figure>
+<p><code>decrement</code>, <code>isSameTeam</code>和<code>punch</code>都是纯函数, 所以引用是透明的. 我们可以使用一种等式推导的技术来分析代码. 所谓等式推导就是一对一的替换, 手动执行相关代码, 借助引用透明特性来剖析代码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先内联掉isSameTeam函数</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(player.team === target.team) &#123;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由于是不可变数据, 因此team字段可以替换为实际的值</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="string">'red'</span> === <span class="string">'green'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 替换为值后就可以看出if语句可以删除了</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> decrementHP(target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最后在内联decrementHP函数</span></span><br><span class="line"><span class="keyword">var</span> punch = <span class="function"><span class="keyword">function</span>(<span class="params">player, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> target.set(<span class="string">'hp'</span>, target.hp - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>等式推导对于分析, 理解和重构代码非常重要.</p>
+<h3 id="并行代码"><a href="#并行代码" class="headerlink" title="并行代码"></a>并行代码</h3><p>最后决定性的一点, 我们可以并行任意纯函数. 因为纯函数根本不访问任何共享内存, 也不会引入副作用而进入竞争态. </p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>纯函数本身是不同凡响的, 我们将尽力将所有函数写为纯函数. 但如果手头没有一些工具支持的话, 纯函数写起来会比较费力. 我们需要到处传递参数, 因此通过下一篇介绍的curry新工具辅助我们更容易的实现纯函数.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/qrcode.jpg" alt="赵浩程 wechat" style="width: 200px; max-width: 100%;">
+  <div>扫一扫关注我的订阅号</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/函数式编程/" rel="tag"># 函数式编程</a>
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/编程范式/" rel="tag"># 编程范式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/23/ts-basic-types/" rel="next" title="Typescript 官方文档翻译 第一章 基础类型">
+                <i class="fa fa-chevron-left"></i> Typescript 官方文档翻译 第一章 基础类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my-avatar.png" alt="赵浩程">
+            
+              <p class="site-author-name" itemprop="name">赵浩程</p>
+              <div class="site-description motion-element" itemprop="description">随便写写</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haochengz" title="GitHub &rarr; https://github.com/haochengz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:haochengz@outlook.com" title="E-Mail &rarr; mailto:haochengz@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com" title="https://github.com" rel="noopener" target="_blank">Github</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#纯函数的好处"><span class="nav-number">1.</span> <span class="nav-text">纯函数的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#再次强调”纯”"><span class="nav-number">1.1.</span> <span class="nav-text">再次强调”纯”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副作用有哪些"><span class="nav-number">1.2.</span> <span class="nav-text">副作用有哪些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八年级数学"><span class="nav-number">1.3.</span> <span class="nav-text">八年级数学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最求纯的理由"><span class="nav-number">1.4.</span> <span class="nav-text">最求纯的理由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可缓存性"><span class="nav-number">1.4.1.</span> <span class="nav-text">可缓存性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可移植性-自文档化"><span class="nav-number">1.4.2.</span> <span class="nav-text">可移植性/自文档化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可测试性"><span class="nav-number">1.4.3.</span> <span class="nav-text">可测试性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合理性"><span class="nav-number">1.4.4.</span> <span class="nav-text">合理性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行代码"><span class="nav-number">1.4.5.</span> <span class="nav-text">并行代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵浩程</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
