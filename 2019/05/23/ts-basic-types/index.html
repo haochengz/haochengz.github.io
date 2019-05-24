@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Aspire">
 <meta property="og:description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  基础类型简介为了使程序能够进行最基础的操作, 我们需要一些最基础的数据单元: 数字, 字符串, 结构, 布尔值等. 在Typescript中我们除了支持和Javascript中相同的所有类型, 还包括了更方便的枚举类型. 布尔值这是最基础的一个数据类型, 其值只能是true/false, 在Typescript和Javascript中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-23T18:17:32.762Z">
+<meta property="og:updated_time" content="2019-05-24T12:19:47.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Typescript 官方文档翻译 第一章 基础类型">
 <meta name="twitter:description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  基础类型简介为了使程序能够进行最基础的操作, 我们需要一些最基础的数据单元: 数字, 字符串, 结构, 布尔值等. 在Typescript中我们除了支持和Javascript中相同的所有类型, 还包括了更方便的枚举类型. 布尔值这是最基础的一个数据类型, 其值只能是true/false, 在Typescript和Javascript中">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-24 02:17:32" itemprop="dateModified" datetime="2019-05-24T02:17:32+08:00">2019-05-24</time>
+                <time title="修改时间：2019-05-24 20:19:47" itemprop="dateModified" datetime="2019-05-24T20:19:47+08:00">2019-05-24</time>
               
             
           </span>
@@ -497,7 +497,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span>;</span><br><span class="line">notSure = <span class="string">'maybe a string instead'</span>;</span><br><span class="line">notSure = <span class="literal">false</span> <span class="comment">// okay, definitely a boolean</span></span><br></pre></td></tr></table></figure>
 <p>Any类型在处理已有Javascript代码时是一个强大的工具, 其可以在编译时逐渐的引入或关闭类型检查. 你可能认为’Object’也能完成类似工作, 就像在其他语言中那样. 然而’Object’类型的变量仅仅允许你将任何值赋值给它. 你不能随意的调用它们的方法, 就算是存在的方法.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span>;</span><br><span class="line">notSure.ifItExists(); <span class="comment">// okay, ifItExists might exists at runtime</span></span><br><span class="line">notSure.toFixed(); <span class="comment">// okay, toFixed exists (but the compiler doesn't check)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> prettySure: <span class="built_in">Object</span> = <span class="number">4</span>;</span><br><span class="line">prettySure.toFixed(); <span class="comment">// Error: Property 'toFixed' doesn't exists on type 'Object'</span></span><br></pre></td></tr></table></figure>
-<p>Any类型在你已知一部分类型时通用有用. 如你可能需要一个数组, 但数组的类型混合了多重类型.</p>
+<p>Any类型在你已知一部分类型时通常有用. 如你可能需要一个数组, 但数组的类型混合了多重类型.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list: <span class="built_in">any</span>[] = [<span class="number">1</span>, <span class="literal">true</span>, <span class="string">'free'</span>];</span><br><span class="line"></span><br><span class="line">list[<span class="number">1</span>] = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="Void"><a href="#Void" class="headerlink" title="Void"></a>Void</h2><p>void差不多和any类型相反: 没有任意类型. 你应该经常在不返回任何值得函数返回类型上见到它.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">warnUser</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'This is my warning message'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -510,8 +510,8 @@
 <blockquote>
 <p>提议: 我们鼓励只要可能就使用 ‘–strictNullChecks’, 但出于本指南的某些目的, 我们假设这个编译选项是关闭的.</p>
 </blockquote>
-<h2 id="Never"><a href="#Never" class="headerlink" title="Never"></a>Never</h2><p>never类型表示这个类型的值用于不会产生. 例如never是一个函数表达式或箭头函数表达式的返回值, 其永远只会抛出异常或者用于不会返回. 变量同样可以被定义为never类型只要其永远不被赋值.</p>
-<p>never类型是所有类型的子类型, 可以赋值为任何类型. 但没有任何是never的子类型, 或被赋值为never(除了never本身). 即是Any都不能被赋值为never.</p>
+<h2 id="Never"><a href="#Never" class="headerlink" title="Never"></a>Never</h2><p>never类型表示这个类型的值不会产生. 例如never是一个函数表达式或箭头函数表达式的返回值, 其永远只会抛出异常或者用于不会返回. 变量同样可以被定义为never类型只要其永远不被赋值.</p>
+<p>never类型是所有类型的子类型, 可以赋值为任何类型. 但没有任何类型是never的子类型, 或被赋值为never(除了never本身). 即是Any都不能被赋值为never.</p>
 <p>一些函数返回never的例子:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Function returning never must have unreachable end point</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">error</span>(<span class="params">message: <span class="built_in">string</span></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Inferred return type is never</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> error(<span class="string">"Something failed"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Function returning never must have unreachable end point</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">infiniteLoop</span>(<span class="params"></span>): <span class="title">never</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><p>object表示一个非原始类型的类型. 即任何类型除了: number, string, boolean, symbol, null 或者 undefined</p>
