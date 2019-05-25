@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  # 变量声明let和const是Javascript中两个相对较新的变量声明方式. 之前提过的是, let和var某些方面较为接近, 但也避免了用户在Javascript中遇到的常见错误. const是let的增强, 其避免了重新给变量赋值. 既然Typescript是Javascript的超集, 也就自然的支持了let和const.">
+<meta name="keywords" content="typescript,language,翻译,语言学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Typescript 官方文档翻译 第二章 变量声明">
+<meta property="og:url" content="http://blog.neverland.tech/2019/05/25/ts-declarations/index.html">
+<meta property="og:site_name" content="Aspire">
+<meta property="og:description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  # 变量声明let和const是Javascript中两个相对较新的变量声明方式. 之前提过的是, let和var某些方面较为接近, 但也避免了用户在Javascript中遇到的常见错误. const是let的增强, 其避免了重新给变量赋值. 既然Typescript是Javascript的超集, 也就自然的支持了let和const.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-25T12:11:42.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Typescript 官方文档翻译 第二章 变量声明">
+<meta name="twitter:description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  # 变量声明let和const是Javascript中两个相对较新的变量声明方式. 之前提过的是, let和var某些方面较为接近, 但也避免了用户在Javascript中遇到的常见错误. const是let的增强, 其避免了重新给变量赋值. 既然Typescript是Javascript的超集, 也就自然的支持了let和const.">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.neverland.tech/2019/05/25/ts-declarations/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Typescript 官方文档翻译 第二章 变量声明 | Aspire</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aspire</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">我的知识库</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/25/ts-declarations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵浩程">
+      <meta itemprop="description" content="随便写写">
+      <meta itemprop="image" content="/images/my-avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aspire">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Typescript 官方文档翻译 第二章 变量声明
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-25 13:36:24 / 修改时间：20:11:42" itemprop="dateCreated datePublished" datetime="2019-05-25T13:36:24+08:00">2019-05-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/typescript-官方文档翻译/" itemprop="url" rel="index"><span itemprop="name">typescript 官方文档翻译</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇文章翻译自Typescript官方文档, 可点击查看<a href="http://www.typescriptlang.org/docs/handbook/variable-declarations.html" target="_blank" rel="noopener">原文</a></p>
+<hr>
+<h1 id="变量声明"><a href="#变量声明" class="headerlink" title="# 变量声明"></a># 变量声明</h1><p><code>let</code>和<code>const</code>是Javascript中两个相对较新的变量声明方式. 之前提过的是, <code>let</code>和<code>var</code>某些方面较为接近, 但也避免了用户在Javascript中遇到的常见错误. <code>const</code>是<code>let</code>的增强, 其避免了重新给变量赋值.</p>
+<p>既然Typescript是Javascript的超集, 也就自然的支持了<code>let</code>和<code>const</code>. 接着我们会仔细的观察这些新的声明以及为什么它们比<code>var</code>更好.</p>
+<p>如果你对Javascript有些生疏了 那么下面一节将帮你回忆一下. 如果你非常熟悉Javascript中<code>var</code>声明的很多怪异行为, 那么你可以跳过接下来一节.</p>
+<h2 id="var声明"><a href="#var声明" class="headerlink" title="var声明"></a>var声明</h2><p>在Javascript中声明一个变量最传统的方式就是使用<code>var</code>关键字.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>你应该可以看出我们声明了一个变量<code>a</code>并给其赋值为<code>10</code>.</p>
+<p>同样也可以在函数内部赋值:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> message = <span class="string">"hello world!"</span>;</span><br><span class="line">  <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们也可以在其他函数内部访问到该变量:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> g = f();</span><br><span class="line">g(); <span class="comment">//=&gt; 11</span></span><br></pre></td></tr></table></figure>
+<p>上一个例子中, <code>g</code>函数捕获了在函数<code>f</code>中声明的变量<code>a</code>. 函数<code>g</code>不论在哪里被调用, 变量<code>a</code>的值都将绑定到函数<code>f</code>中的变量<code>a</code>的值上. 即是<code>g</code>被调用时<code>f</code>已经结束运行, 其任然可以访问和修改<code>a</code>的值.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  a = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">var</span> b = g();</span><br><span class="line">  a = <span class="number">3</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> b;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f(); <span class="comment">//=&gt; 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="作用域规则"><a href="#作用域规则" class="headerlink" title="作用域规则"></a>作用域规则</h3><p>和其他语言相比, <code>var</code>声明有些奇怪的作用域规则, 如一下示例:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">shouldInitialize: <span class="built_in">boolean</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(shouldInitialize) &#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line">f(<span class="literal">true</span>); <span class="comment">//=&gt; 10</span></span><br><span class="line">f(<span class="literal">false</span>); <span class="comment">//=&gt; undefined</span></span><br></pre></td></tr></table></figure>
+<p>有些读者可能需要点时间才能看懂上面一个示例. 变量<code>x</code>在<code>if</code>块内被声明, 我们能在块外部访问到它是因为<code>var</code>声明的变量能在其声明的函数, 模块, 名称空间或全局空间作用域内的任意地方被访问到. 稍后我们会解释这些作用域. 也有人称其为var作用域或函数作用域. 参数属于函数作用域.</p>
+<p>这些作用域规则可能导致一些类型的误会. 其中一个问题是但声明一个同名变量多次时不被认为是一个错误.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sumMatrix</span>(<span class="params">matrix: <span class="built_in">number</span>[][]</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> currentRow = matrix[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; currentRow.length; i++) &#123;</span><br><span class="line">      sum += currentRow[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个错误可能非常容易发现, 内部的<code>for</code>循环意外的覆盖了变量<code>i</code>, 两个变量<code>i</code>都指向了同一个函数作用域变量. 有经验的开发者现在可能熟悉这类bug很容易就在code reviews是被忽略, 这类错误极难发现.</p>
+<h3 id="变量捕获的怪异行为"><a href="#变量捕获的怪异行为" class="headerlink" title="变量捕获的怪异行为"></a>变量捕获的怪异行为</h3><p>花几秒钟时间预计一下下面一段代码的输出:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(i); &#125;, <span class="number">100</span> * i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于不熟悉<code>setTimeout</code>的读者, 这个函数在指定的毫秒数过后执行一个函数(同时等待所有代码停止执行).</p>
+<p>准备好了吗?</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<p>很多Javascript开发者可能很熟悉这种行为, 但如果你觉得很惊讶, 惊讶不只是你. 很多人预测输出是:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+<p>还记得早先我们提到的变量捕获吗? 我们传递给<code>setTimeout</code>的每个函数表达式实际上引用了该作用域内的同一个<code>i</code>.</p>
+<p>让我们花一分钟时间考虑一下为什么会这样. <code>setTimeout</code>将会在一定毫秒数后执行函数, 但一定在<code>for</code>寻获结束之后; 在<code>for</code>循环结束执行之后的这个时间段, <code>i</code>的值是<code>10</code>. 因此这些函数被调用时会打印出<code>10</code>.</p>
+<p>一个解决的方式是使用IIFE - Immediately Invoked Function Expression - 在每次迭代是捕获变量<code>i</code>的值.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(i);&#125;, <span class="number">100</span>*i);</span><br><span class="line">  &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个奇怪的写法实际上非常常用. 参数<code>i</code>覆盖了<code>for</code>循环中声明的变量<code>i</code>, 我们把它定义成同名的就不需要过多的修改原始的循环体了.</p>
+<h2 id="let声明"><a href="#let声明" class="headerlink" title="let声明"></a>let声明</h2><p>看到这里你可能已经意识到<code>var</code>的问题了, 这就是<code>let</code>语句被引入的原因. 除了使用了不同的关键字外, <code>let</code>语句的写法和<code>var</code>语句相同.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hello = <span class="string">"Hello!"</span>;</span><br></pre></td></tr></table></figure>
+<p>接着我们就会看到, 其关键的区别并非语法区别而是语义区别.</p>
+<h3 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h3><p>当变量使用<code>let</code>声明后, 该变量有了词法作用域或块作用域. 和<code>var</code>声明的变量的作用域范围外泄到其外部函数不同, 块作用域在其声明的外层空间不可见.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">input: <span class="built_in">boolean</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">if</span>(input) &#123;</span><br><span class="line">    <span class="comment">// 可以引用到a</span></span><br><span class="line">    <span class="keyword">let</span> b = a + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 错误: b不可见</span></span><br><span class="line">  <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中我们有两个局部变量<code>a</code>和<code>b</code>. <code>a</code>的作用域被限制到函数<code>f</code>的函数体内, <code>b</code>的作用域则限制到<code>if</code>块内.</p>
+<p>在<code>catch</code>从句中什么的变量也具有相同作用域规则:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="string">"oh no!"</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Oh well.'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误: e不可见</span></span><br><span class="line"><span class="built_in">console</span>.log(e);</span><br></pre></td></tr></table></figure>
+<p>块作用域变量的另一个特性是其不能在实际声明之前被读取或修改. 虽然这些变量在整个作用域内都是存在的, 但直到声明之前都是暂时性死区. 这是一种复杂的方法表示你不能在let语句之前访问, Typescript会提示你:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a++; <span class="comment">// illegal to use 'a' before it's declared;</span></span><br><span class="line"><span class="keyword">let</span> a;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是你依然可以捕获到块作用域变量在其声明之前. 唯一需要注意的是不能在声明之前调用该函数. 如果目标环境是ES2015, 当前运行时会抛出一个错误; 然而目前Typescript不会抛出这个错误.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// okay to capture 'a'</span></span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// illegal call 'foo' before 'a' is declared</span></span><br><span class="line"><span class="comment">// runtimes should throw an error here</span></span><br><span class="line"><span class="comment">// Typescript目前不会抛出这个错误</span></span><br><span class="line">foo();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a;</span><br></pre></td></tr></table></figure>
+<p>需要了解暂时性死区的更多信息, 可以在<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone_and_errors_with_let" target="_blank" rel="noopener">Mozilla Developer Network</a>查看相关信息.</p>
+<h3 id="重新声明和覆盖"><a href="#重新声明和覆盖" class="headerlink" title="重新声明和覆盖"></a>重新声明和覆盖</h3><p>使用<code>var</code>声明, 我们之前提到不论你声明了多少次, 你只有这一个变量.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x;</span><br><span class="line">  <span class="keyword">var</span> x;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> x;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中, 所有的<code>x</code>的声明都指向了同一个<code>x</code>, 这是有效的. 这也通常是很多bug的来源. <code>let</code>声明则将其视为一个错误.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> x = <span class="number">20</span>; <span class="comment">// error: can't re-declare 'x' in the same scope</span></span><br></pre></td></tr></table></figure>
+<p>对于TypeScript来说，变量不一定都需要块作用域来告诉我们存在问题。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">100</span>; <span class="comment">// error: interferes with parameter declaration</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">100</span>; <span class="comment">// error: can't have both declarations of 'x'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这也并不是说块作用域变量永远不能和函数作用域变量同时声明. 块作用域变量只是需要被声明在一个不同的块内.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">condition, x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (condition) &#123;</span><br><span class="line">        <span class="keyword">let</span> x = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f(<span class="literal">false</span>, <span class="number">0</span>); <span class="comment">// returns '0'</span></span><br><span class="line">f(<span class="literal">true</span>, <span class="number">0</span>);  <span class="comment">// returns '100'</span></span><br></pre></td></tr></table></figure>
+<p>在嵌套域中引入新名字的行为成为覆盖. 这是一把双刃剑, 在意外覆盖的情况下可能会引入某些的bug, 同时也避免了某些bug. 例如想象我们使用<code>let</code>改写之前的<code>sumMatrix</code>函数.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sumMatrix</span>(<span class="params">matrix: <span class="built_in">number</span>[][]</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> currentRow = matrix[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; currentRow.length; i++) &#123;</span><br><span class="line">            sum += currentRow[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个版本的循环实际正确的计算了矩阵的和, 因为内层循环的<code>i</code>覆盖了外层循环的<code>i</code>.</p>
+<p>覆盖在编写清晰代码是应该避免. 而在某些场景下它可能非常适合, 此时应该运用你的判断力自行决定.</p>
+<h3 id="块作用域变量捕获"><a href="#块作用域变量捕获" class="headerlink" title="块作用域变量捕获"></a>块作用域变量捕获</h3><p>我们之前首次接触<code>var</code>声明的变量捕获时, 我们简短的介绍了捕获后的变量的行为. 为了使这个概率更符合直觉, 每次运行进入一个域时, 它就创建了一个变量环境. 这个环境和其所捕获的变量能一致存在就算所属的域已经执行结束.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">theCityThatAlwaysSleeps</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> getCity;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> city = <span class="string">'Seattle'</span>;</span><br><span class="line">    getCity = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> city;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> getCity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于我们在环境中捕获了<code>city</code>, 我们依然可以执行它就算它所位于的if块已经执行完毕.</p>
+<p>回忆我们之前的<code>setTimeout</code>实例, 我们通过使用IIFE在for循环的每次迭代中捕获到变量状态. 实际上, 我们做的是为我们捕获的变量创建了一个新的变量环境. 这并不友好, 但幸运的是在Typescript中不需要再这么做了.</p>
+<p><code>let</code>声明在循环中编写非常不一样. 其并非每次迭代时引入新的环境, 而是每次迭代时创建新的作用域. 尽管这就是我们使用IIFE所做的, 我们可以使用<code>let</code>声明修改旧的<code>setTimeout</code>示例.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(i); &#125;, <span class="number">100</span>*i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和期望的一样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+<h2 id="const声明"><a href="#const声明" class="headerlink" title="const声明"></a>const声明</h2><p><code>const</code>声明是另一种声明变量的方法.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numLivesForCat = <span class="number">9</span>;</span><br></pre></td></tr></table></figure>
+<p>就像<code>let</code>声明, 但就像它的名字所暗示的, 它们所声明的变量绑定之后不能再被赋值. 换句话说, 它们和<code>let</code>具有相同的作用域规则, 但你不能重新赋值.</p>
+<p>很容易理解的这些值是不可变的:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numLivesForCat = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">const</span> kitty = &#123;</span><br><span class="line">    name: <span class="string">"Aurora"</span>,</span><br><span class="line">    numLives: numLivesForCat,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Error</span></span><br><span class="line">kitty = &#123;</span><br><span class="line">    name: <span class="string">"Danielle"</span>,</span><br><span class="line">    numLives: numLivesForCat</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// all "okay"</span></span><br><span class="line">kitty.name = <span class="string">"Rory"</span>;</span><br><span class="line">kitty.name = <span class="string">"Kitty"</span>;</span><br><span class="line">kitty.name = <span class="string">"Cat"</span>;</span><br><span class="line">kitty.numLives--;</span><br></pre></td></tr></table></figure>
+<p>除非你采取了特殊错误避免, 否则<code>const</code>声明的变量依然是可修改的. 幸运的是Typescript允许使用<code>readonly</code>指定对象内的不可变成员. 接口一章将详细讨论.</p>
+<h2 id="let-vs-const"><a href="#let-vs-const" class="headerlink" title="let vs. const"></a>let vs. const</h2><p>我们现在有两种具有相似作用域语义的声明方式, 也就很自然的会问应该用哪一种. 和其他宽泛的问题一样, 答案是: 看情况.</p>
+<p>根据<strong>最小特权原则</strong>, 所有的声明, 除了那些你一开始就计划要做修改的外都应该使用<code>const</code>. 逻辑是那些你并不准备修改的变量, 其他工作在同一代码库的人不应该自动的获得修改权限, 同时需要认真的考虑需要修改这个变量吗? 使用<code>const</code>同时使代码在数据流中推导时更容易预测.</p>
+<p>你应该自行判断, 如果情况适用于<code>const</code>, 和团队成员沟通.</p>
+<h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p>Typescript具备的另外一个ECMAScript 2015特性是解构. 本书的绝大部分使用<code>let</code>声明. 查看<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" rel="noopener">Mozilla Developer Network</a>获取完整的信息. 本节我们做一个简要的概述.</p>
+<h3 id="数组解构"><a href="#数组解构" class="headerlink" title="数组解构"></a>数组解构</h3><p>最简单的解构是数组解构赋值:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> input = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">let</span> [first, second] = input;</span><br><span class="line"><span class="built_in">console</span>.log(first); <span class="comment">//=&gt; 1</span></span><br><span class="line"><span class="built_in">console</span>.log(second); <span class="comment">//=&gt; 2</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码创建了两个变量<code>first</code>和<code>second</code>. 相当于使用索引赋值, 但方便得多:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">first = input[<span class="number">0</span>];</span><br><span class="line">second = input[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>解构也可以应用在已声明变量上:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[first, second] = [second, first];</span><br></pre></td></tr></table></figure>
+<p>函数参数也可以:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">[first, second]: [<span class="built_in">number</span>, <span class="built_in">number</span>]</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(first);</span><br><span class="line">  <span class="built_in">console</span>.log(second);</span><br><span class="line">&#125;</span><br><span class="line">f([<span class="number">1</span>, <span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+<p>你也可以创建一个变量获取剩余参数, 使用<code>…</code>语法:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [first, ...rest] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log(first); <span class="comment">//=&gt; 1</span></span><br><span class="line"><span class="built_in">console</span>.log(rest); <span class="comment">//=&gt; [2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<p>当然, 由于这是Javascript, 如果你不需要后面的元素, 只要简单的忽略就行了:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [first] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log(first); <span class="comment">//=&gt; 1</span></span><br></pre></td></tr></table></figure>
+<p>或者跳过任意的元素:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [, second, , fourth] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h3><p>也可以解构对象:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> o = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="number">12</span>,</span><br><span class="line">  c: <span class="string">'bar'</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;a, b&#125; = o;</span><br></pre></td></tr></table></figure>
+<p>创建了新变量<code>a</code>和<code>b</code>, 赋值为<code>o.a</code>和<code>o.b</code>. 注意, 跳过了<code>c</code>.</p>
+<p>就像数组解构, 赋值给已声明变量也可以:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&#123;a, b&#125; = &#123;a: <span class="string">'baz'</span>, b: <span class="number">101</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>注意我们使用小括号包住了解构语句, 因为Javascript通常将<code>{</code>视作一个块的开始.</p>
+<p>你可以创建一个变量接收剩余属性, 使用<code>…</code>语法:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;a, ...passthrough&#125; = o;</span><br><span class="line"><span class="keyword">let</span> total = passthrough.b + passthrough.c.length;</span><br></pre></td></tr></table></figure>
+<h4 id="剩余属性"><a href="#剩余属性" class="headerlink" title="剩余属性"></a>剩余属性</h4><p>也可以取不同的名字:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;a: newName1, b: newName2&#125; = o;</span><br></pre></td></tr></table></figure>
+<p>这里的语法可能有些迷惑. 当你读<code>a:newName1</code>为: <code>a</code>为<code>newName</code>. 方向是从左到右的, 好像你是这么写的:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> newName1 = o.a;</span><br><span class="line"><span class="keyword">let</span> newName2 = o.b;</span><br></pre></td></tr></table></figure>
+<p>还有一个困惑的地方, 冒号在这里不是用于指示类型. 如果你需要制定类型需要在解构最后来写:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;a: newName1, b: newName2&#125;: &#123;a: <span class="built_in">string</span>, b: <span class="built_in">number</span>&#125; = o;</span><br></pre></td></tr></table></figure>
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><p>默认值运行你制定一个默认值, 避免该属性不存在:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keepWholeObject</span>(<span class="params">wholeObject: &#123;a: <span class="built_in">string</span>, b?: <span class="built_in">number</span>&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123;a, b=<span class="number">1001</span>&#125; = wholeObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>keepWholeObject</code>中的<code>wholeObject</code>参数不论是否存在都不影响变量<code>a</code>和<code>b</code>获取它的值.</p>
+<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>解构同时也可以用于函数声明. 下面是一个简单的例子:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> C = &#123;a: <span class="built_in">string</span>, b?: <span class="built_in">number</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">&#123;a, b&#125;: C</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但给参数制定默认值更常见, 在解构后立即获取默认值稍难理解. 首先需要记住把模式放在默认值之前.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">&#123;a='', b=0&#125; = &#123;&#125;</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="comment">//... ...</span></span><br><span class="line">&#125;</span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面一段代码是一段类型推导的例子. 本书稍后会解释</p>
+</blockquote>
+<p>接着你需要记住为被解构对象的可选参数赋予一个默认值而不是在主初始化器中. 记住<code>C</code>定义了属性<code>b</code>为可选:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">&#123; a, b = 0 &#125; = &#123; a: "" &#125;</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">f(&#123; a: <span class="string">"yes"</span> &#125;); <span class="comment">// ok, default b = 0</span></span><br><span class="line">f(); <span class="comment">// ok, default to &#123; a: "" &#125;, which then defaults b = 0</span></span><br><span class="line">f(&#123;&#125;); <span class="comment">// error, 'a' is required if you supply an argument</span></span><br></pre></td></tr></table></figure>
+<p>谨慎使用解构。 正如前面的例子所示，除了最简单的解构表达式之外的任何东西都令人困惑。 深度嵌套的解构尤其如此，即使没有重命名，默认值和类型注释，也很难理解。 尽量保持解构表达式小而简单。</p>
+<h3 id="展开"><a href="#展开" class="headerlink" title="展开"></a>展开</h3><p>展开运算符正是解构的反面. 它允许将一个数组展开为另外一个数组. 或者一个对象展开为另外一个对象. 例如:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> first = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">let</span> second = [<span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">let</span> bothPlus = [<span class="number">0</span>, ...first, ...second, <span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+<p>变量<code>bothPlus</code>被赋值为<code>[1, 2, 3, 4, 5]</code>. 展开创建了一个浅拷贝的<code>first</code>和<code>second</code>. 它们不会被修改.</p>
+<p>也可以展开对象:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> defaults = &#123;food: <span class="string">'spicy'</span>, price: <span class="string">'$$'</span>, ambiance: <span class="string">'noisy'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> search = &#123;...defaults, food: <span class="string">'rich'</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>现在变量<code>search</code>的值为:<code>{food: &#39;rich&#39;, price: &#39;$$&#39;, ambiance: &#39;noisy&#39;}</code>. 对象展开比数组展开更复杂. 类似数组展开其从左向右执行, 结果依然是一个对象. 这意味着展开对象时后读取的属性覆盖早读取的. 因此如下, 如果我们改写前一个例子:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> defaults = &#123; food: <span class="string">"spicy"</span>, price: <span class="string">"$$"</span>, ambiance: <span class="string">"noisy"</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> search = &#123; food: <span class="string">"rich"</span>, ...defaults &#125;;</span><br></pre></td></tr></table></figure>
+<p>现在变量<code>search</code>的值为:<code>{food: &#39;spicy&#39;, price: &#39;$$&#39;, ambiance: &#39;noisy&#39;}</code>. <code>food</code>的值被<code>defaults</code>中的覆盖了, 在这里并不是我们想要的.</p>
+<p>对象展开还有一些其他的限制. 首先他只能包含对象的, 自有的, 可枚举的属性. 基本上意味着你在做展开时也丢失了所有方法.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">  p = <span class="number">12</span>;</span><br><span class="line">  m() &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> C();</span><br><span class="line"><span class="keyword">let</span> clone = &#123; ...c &#125;;</span><br><span class="line">clone.p; <span class="comment">// ok</span></span><br><span class="line">clone.m(); <span class="comment">// error!</span></span><br></pre></td></tr></table></figure>
+<p>其次, Typescript编译器并不允许在通用函数中展开类型参数. 之后的版本中可能会添加.</p>
+<hr>
+<p>本篇文章翻译自Typescript官方文档, 可点击查看<a href="http://www.typescriptlang.org/docs/handbook/variable-declarations.html" target="_blank" rel="noopener">原文</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/images/qrcode.jpg" alt="赵浩程 wechat" style="width: 200px; max-width: 100%;">
+  <div>扫一扫关注我的订阅号</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+            <a href="/tags/language/" rel="tag"># language</a>
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/语言学习/" rel="tag"># 语言学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/24/fp-pure/" rel="next" title="函数式编程 第二篇 纯函数">
+                <i class="fa fa-chevron-left"></i> 函数式编程 第二篇 纯函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my-avatar.png" alt="赵浩程">
+            
+              <p class="site-author-name" itemprop="name">赵浩程</p>
+              <div class="site-description motion-element" itemprop="description">随便写写</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haochengz" title="GitHub &rarr; https://github.com/haochengz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:haochengz@outlook.com" title="E-Mail &rarr; mailto:haochengz@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com" title="https://github.com" rel="noopener" target="_blank">Github</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#变量声明"><span class="nav-number">1.</span> <span class="nav-text"># 变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#var声明"><span class="nav-number">1.1.</span> <span class="nav-text">var声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域规则"><span class="nav-number">1.1.1.</span> <span class="nav-text">作用域规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量捕获的怪异行为"><span class="nav-number">1.1.2.</span> <span class="nav-text">变量捕获的怪异行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let声明"><span class="nav-number">1.2.</span> <span class="nav-text">let声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#块作用域"><span class="nav-number">1.2.1.</span> <span class="nav-text">块作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新声明和覆盖"><span class="nav-number">1.2.2.</span> <span class="nav-text">重新声明和覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块作用域变量捕获"><span class="nav-number">1.2.3.</span> <span class="nav-text">块作用域变量捕获</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const声明"><span class="nav-number">1.3.</span> <span class="nav-text">const声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-vs-const"><span class="nav-number">1.4.</span> <span class="nav-text">let vs. const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构"><span class="nav-number">1.5.</span> <span class="nav-text">解构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组解构"><span class="nav-number">1.5.1.</span> <span class="nav-text">数组解构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象解构"><span class="nav-number">1.5.2.</span> <span class="nav-text">对象解构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#剩余属性"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">剩余属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认值"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">默认值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数声明"><span class="nav-number">1.5.3.</span> <span class="nav-text">函数声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展开"><span class="nav-number">1.5.4.</span> <span class="nav-text">展开</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵浩程</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
