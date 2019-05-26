@@ -100,18 +100,18 @@
 
 
 
-  <meta name="description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
+  <meta name="description" content="柯里化不可获或缺的currycurry的概念很简单: 只传递给函数一部分参数来调用它, 让它返回一个函数去处理剩下的参数. 你可以一次性调用curry函数, 也可以每次只传递一个参数分多次调用. 1234567891011var add = function(x) &amp;#123;  return function(y) &amp;#123;    return x + y;  &amp;#125;;&amp;#125;;v">
 <meta name="keywords" content="函数式编程,Javascript,编程范式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数式编程 第一篇 基础概念">
-<meta property="og:url" content="http://blog.neverland.tech/2019/05/23/fp-basic/index.html">
+<meta property="og:title" content="函数式编程 第三篇 柯里化">
+<meta property="og:url" content="http://blog.neverland.tech/2019/05/26/fp-curry/index.html">
 <meta property="og:site_name" content="Aspire">
-<meta property="og:description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
+<meta property="og:description" content="柯里化不可获或缺的currycurry的概念很简单: 只传递给函数一部分参数来调用它, 让它返回一个函数去处理剩下的参数. 你可以一次性调用curry函数, 也可以每次只传递一个参数分多次调用. 1234567891011var add = function(x) &amp;#123;  return function(y) &amp;#123;    return x + y;  &amp;#125;;&amp;#125;;v">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-24T06:21:06.865Z">
+<meta property="og:updated_time" content="2019-05-26T06:47:07.627Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数式编程 第一篇 基础概念">
-<meta name="twitter:description" content="概念和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式. 如果你之前并不熟悉函数式编程, 仅仅使用面向">
+<meta name="twitter:title" content="函数式编程 第三篇 柯里化">
+<meta name="twitter:description" content="柯里化不可获或缺的currycurry的概念很简单: 只传递给函数一部分参数来调用它, 让它返回一个函数去处理剩下的参数. 你可以一次性调用curry函数, 也可以每次只传递一个参数分多次调用. 1234567891011var add = function(x) &amp;#123;  return function(y) &amp;#123;    return x + y;  &amp;#125;;&amp;#125;;v">
 
 
 
@@ -119,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.neverland.tech/2019/05/23/fp-basic/">
+  <link rel="canonical" href="http://blog.neverland.tech/2019/05/26/fp-curry/">
 
 
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title>函数式编程 第一篇 基础概念 | Aspire</title>
+  <title>函数式编程 第三篇 柯里化 | Aspire</title>
   
 
 
@@ -349,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/23/fp-basic/">
+    <link itemprop="mainEntityOfPage" href="http://blog.neverland.tech/2019/05/26/fp-curry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵浩程">
@@ -366,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">函数式编程 第一篇 基础概念
+          <h1 class="post-title" itemprop="name headline">函数式编程 第三篇 柯里化
 
               
             
@@ -392,24 +392,12 @@
                 
               
 
-              <time title="创建时间：2019-05-23 03:46:17" itemprop="dateCreated datePublished" datetime="2019-05-23T03:46:17+08:00">2019-05-23</time>
+              <time title="创建时间：2019-05-26 14:11:34 / 修改时间：14:47:07" itemprop="dateCreated datePublished" datetime="2019-05-26T14:11:34+08:00">2019-05-26</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-24 14:21:06" itemprop="dateModified" datetime="2019-05-24T14:21:06+08:00">2019-05-24</time>
               
             
           </span>
@@ -461,22 +449,22 @@
       
 
       
-        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>和面向对象编程等范式一样, 函数式编程也是一种编程范式. 函数式编程并没有比面向对象更好, 或者更差. 它们都使用特定的手段解决工作中的问题, 某些场景下函数式编程非常适合, 相应的某些场景下使用函数编程范式并不会是最好的选择. Javascript是一种多范式语言, 现代语言多数是这样的. 使用这些现在编程语言可以使你面对问题选择合适的编程范式.</p>
-<p>如果你之前并不熟悉函数式编程, 仅仅使用面向对象的方式去编写程序. 而且你已经写过一些中等规模的应用程序. 那么你很有可能在可变状态(mutable state), 无限制副作用(unrestricted side effects)和无原则设计(unprincipled design)中遇到了麻烦.</p>
-<p>写代码需要遵循一定的原则, 例如我们已经有了很多耳熟能详的原则: DRY(Don’t repeat yourself), 高内聚低耦合(loose coupling high cohesion), YAGNI(Ya ain’t gonna need it), 最小意外原则(Principle of least surprise), 单一责任原则(Single responsibility)等等. 这些通用的原则适应范围广泛, 编码时应当时刻考虑它们. </p>
-<h1 id="一个愚蠢的例子"><a href="#一个愚蠢的例子" class="headerlink" title="一个愚蠢的例子"></a>一个愚蠢的例子</h1><p>考虑这么一个程序, 鸟群合并会变成一个更大的鸟群, 繁殖会增加鸟群中鸟的数量.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Flock = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.seagulls = n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Flock.prototype.conjoin = <span class="function"><span class="keyword">function</span>(<span class="params">other</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.seagulls += other.seagulls;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Flock.prototype.breed = <span class="function"><span class="keyword">function</span>(<span class="params">other</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.seagulls = <span class="keyword">this</span>.seagulls * other.seagulls;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="keyword">new</span> Flock(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="keyword">new</span> Flock(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="keyword">new</span> Flock(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = flock_a.conjoin(flock_c).breed(flock_b).conjoin(flock_a.breed(flock_b)).seagulls;</span><br><span class="line"><span class="comment">//=&gt; 32</span></span><br></pre></td></tr></table></figure>
-<p>这是一个非常糟糕的程序, 鸟群的内部状态极难跟踪, 非常容易出错, 计算的结果也确实是错的. 如果按照这种方式写程序, 当程序规模变大后, 其复杂度是不可想象的. 而下面一段程序演示了如何使用函数式的写法:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> conjoin = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y &#125;;</span><br><span class="line"><span class="keyword">var</span> breed = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x * y &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = conjoin(breed(flock_b, conjoin(flock_a, flock_c)), breed(flock_a, flock_b));</span><br><span class="line"><span class="comment">//=&gt; 16</span></span><br></pre></td></tr></table></figure>
-<p>这次除了代码少了很多外, 也得到了正确的结果. 最重要的是此时的变量没有了内部状态, 而且更易读了. 如果仔细的看上一段代码你应该可以发现它不过是进行了简单的加和乘的运算而已.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y &#125;;</span><br><span class="line"><span class="keyword">var</span> multiply = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x * y &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flock_a = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> flock_b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> flock_c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = add(multiply(flock_b, add(flock_a, flock_c)), multiply(flock_a, flock_b));</span><br><span class="line"><span class="comment">//=&gt; 16</span></span><br></pre></td></tr></table></figure>
-<p>如果加入一点点数学知识, 就可以继续简化最后一段计算代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 应用同一律去掉多余运算, 再应用分配率</span></span><br><span class="line">multiply(flock_b, add(flock_a, flock_a))</span><br></pre></td></tr></table></figure>
-<h1 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h1><p>当我们说函数是一等公民时所表示的含义是它和其他对象一样, 没什么特殊的, 应该向对待其他数据类型一样的对待它们–存储在数组里, 当作参数传递等. 这是Javascript的基础概念, 然后在Github上随处可以看到对这个重要特性的无视.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">const</span> greeting = <span class="function"><span class="params">name</span> =&gt;</span> hi(name);</span><br></pre></td></tr></table></figure>
-<p>greeting函数在hi函数外部非常多余的包裹了一层. 在函数式编程中应该这么写:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hi = <span class="function"><span class="params">name</span> =&gt;</span> <span class="string">`Hi <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line"><span class="keyword">const</span> greeting = hi;</span><br></pre></td></tr></table></figure>
-<p>将hi函数赋值给greeting, 记住函数是一等公民, 应该可以配任意的赋值给变量.</p>
+        <h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><h2 id="不可获或缺的curry"><a href="#不可获或缺的curry" class="headerlink" title="不可获或缺的curry"></a>不可获或缺的curry</h2><p>curry的概念很简单: 只传递给函数一部分参数来调用它, 让它返回一个函数去处理剩下的参数.</p>
+<p>你可以一次性调用curry函数, 也可以每次只传递一个参数分多次调用.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> increment = add(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> addTen = add(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">increment(<span class="number">2</span>) <span class="comment">//=&gt; 3</span></span><br><span class="line">addTen(<span class="number">2</span>) <span class="comment">//=&gt; 12</span></span><br></pre></td></tr></table></figure>
+<p>这里定义了一个<code>add</code>函数, 它接收一个参数并返回一个新的函数. 调用<code>add</code>之后, 返回的函数就通过闭包的方式记住了<code>add</code>的第一个参数. 一次性的调用它很繁琐, 不过我们可以使用一个特殊的curry帮助函数是这类函数的定义和调用都更加容易.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> curry = <span class="built_in">require</span>(<span class="string">'lodash'</span>).curry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> match = curry(<span class="function"><span class="keyword">function</span>(<span class="params">what, str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.match(what);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> replace = curry(<span class="function"><span class="keyword">function</span>(<span class="params">what, relacement, str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(what, replacement);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> filter = curry(<span class="function"><span class="keyword">function</span>(<span class="params">f, ary</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ary.filter(f);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> map = curry(<span class="function"><span class="keyword">function</span>(<span class="params">f, ary</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ary.map(f);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面的代码遵循了一种简单, 同时非常重要的模式. 即策略性的把要操作的数据放到最后一个参数. 稍后你就知道为什么这样做了.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">match(<span class="regexp">/\s+/g</span>, <span class="string">'hello world'</span>); <span class="comment">//=&gt; [ ' ' ]</span></span><br><span class="line">match(<span class="regexp">/\s+/g</span>)(<span class="string">'hello world'</span>); <span class="comment">//=&gt; [ ' ' ]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hasSpace = match(<span class="regexp">/\s+/g</span>);</span><br><span class="line"><span class="comment">//=&gt; function(x) &#123;return x.match(/\s+/g)&#125;</span></span><br><span class="line"></span><br><span class="line">hasSpace(<span class="string">'hello world'</span>); <span class="comment">//=&gt; [ ' ' ]</span></span><br><span class="line">hasSpace(<span class="string">'spaceless'</span>); <span class="comment">//=&gt; null</span></span><br><span class="line">filter(hasSpace, [<span class="string">'tori_spelling'</span>, <span class="string">'tori amos'</span>]);</span><br><span class="line"><span class="keyword">var</span> findSpace = filter(hasSpace);</span><br><span class="line"><span class="comment">// function(xs) &#123; return xs.filter(function(x) &#123;return x.match(/\s+/g)&#125;)&#125;</span></span><br><span class="line"></span><br><span class="line">findSpace([<span class="string">'tori_spelling'</span>, <span class="string">'tori amos'</span>]);</span><br><span class="line"><span class="comment">//=&gt; ['tori amos']</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> noVowels = replace(<span class="regexp">/[aeiou]/ig</span>);</span><br><span class="line"><span class="keyword">var</span> censored = noVowels(<span class="string">'*'</span>);</span><br><span class="line">censored(<span class="string">'Chocolate Rain'</span>); <span class="comment">//=&gt; Ch*c*l*t* R**n</span></span><br></pre></td></tr></table></figure>
+<h2 id="不仅仅是双关语-咖喱"><a href="#不仅仅是双关语-咖喱" class="headerlink" title="不仅仅是双关语/咖喱"></a>不仅仅是双关语/咖喱</h2><p>curry的应用非常广泛, 就上上面例子中的, 只需要传递一些参数就可以得到一个新的函数.</p>
+<p>用<code>map</code>简单的把参数的单个元素包裹一下, 就能得到它转换成参数为数组的函数.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getChildren = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x.childNodes;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> allTheChildren = map(getChildren);</span><br></pre></td></tr></table></figure>
+<p>只传递给函数一部分参数通常也称为局部调用, 能够减少大量的样本代码. 考虑上面的代码, 如果用lodash的map来写:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> allTheChildren = <span class="function"><span class="keyword">function</span>(<span class="params">elements</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.map(elements, getChildren);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>通常我们不定义直接操作数组的函数, 因为只需要内联调用就能达到目的. 这一点同样适用于<code>sort</code>, <code>filter</code>以及其他高阶函数.</p>
+<p>当我们谈论纯函数时, 我们说它们就收一个输入, 返回一个输出. curry函数所做的正是这样: 每传递一个参数给一个函数, 就返回一个新函数处理剩余函数. 这就是一个输入对应一个输出.</p>
+<p>哪怕输出是另一个函数, 也是纯函数. 当然curry函数也允许一次传递多个参数.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>curry函数用起来非常得心应手, 每天使用简直是一种享受. 堪称手头必备工具, 使函数式编程不那么繁琐和沉闷.通过简单的参数传递就能动态的创建新的函数所带来的一个额外的好处就是保留了函数的数学定义.</p>
 
       
     </div>
@@ -523,15 +511,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/25/ts-declarations/" rel="next" title="Typescript 官方文档翻译 第二章 变量声明">
+                <i class="fa fa-chevron-left"></i> Typescript 官方文档翻译 第二章 变量声明
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/23/ts-basic-types/" rel="prev" title="Typescript 官方文档翻译 第一章 基础类型">
-                Typescript 官方文档翻译 第一章 基础类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -732,7 +720,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个愚蠢的例子"><span class="nav-number">2.</span> <span class="nav-text">一个愚蠢的例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数是一等公民"><span class="nav-number">3.</span> <span class="nav-text">函数是一等公民</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#柯里化"><span class="nav-number">1.</span> <span class="nav-text">柯里化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不可获或缺的curry"><span class="nav-number">1.1.</span> <span class="nav-text">不可获或缺的curry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不仅仅是双关语-咖喱"><span class="nav-number">1.2.</span> <span class="nav-text">不仅仅是双关语/咖喱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
