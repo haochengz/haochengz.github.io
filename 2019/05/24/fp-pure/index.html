@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://blog.neverland.tech/img/function-sets.gif">
 <meta property="og:image" content="http://blog.neverland.tech/img/relation-not-function.gif">
 <meta property="og:image" content="http://blog.neverland.tech/img/fn_graph.png">
-<meta property="og:updated_time" content="2019-05-25T09:07:34.975Z">
+<meta property="og:updated_time" content="2019-05-26T12:28:44.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程 第二篇 纯函数">
 <meta name="twitter:description" content="纯函数的好处再次强调”纯”首先什么是纯函数?  纯函数是这样一种函数, 即相同的输入, 永远会得到相同的输出, 而且没有任何可观察的副作用.  比如slice和splice这两个函数, 它们作用类似但各自的方式却不大相同. slice函数符合纯函数的定义因为它确保了相同的输入能得到相同的输出. 而splice却会修改传入的那个数组; 这样就产生了可观察到的副作用, 即这个数组永久的改变了. 123">
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-25 17:07:34" itemprop="dateModified" datetime="2019-05-25T17:07:34+08:00">2019-05-25</time>
+                <time title="修改时间：2019-05-26 20:28:44" itemprop="dateModified" datetime="2019-05-26T20:28:44+08:00">2019-05-26</time>
               
             
           </span>
@@ -473,7 +473,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// not Pure</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [1, 2, 3]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; [4, 5]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//=&gt; []</span></span><br></pre></td></tr></table></figure>
 <p>在函数式编程中我们需要的是可靠的, 每次都能返回相同结果的函数, 而不是会改变数据的函数.</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not Pure</span></span><br><span class="line"><span class="keyword">var</span> minimum = <span class="number">21</span>;</span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= minimum;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure</span></span><br><span class="line"><span class="keyword">var</span> checkAge = <span class="function"><span class="keyword">function</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> minimum = <span class="number">21</span>;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= minimum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在上面例子那个不纯的版本中, <code>checkAge</code>的结果取决于外部变量<code>minimum</code>. 也就是说它取决于系统状态; 由于引入了外部环境, 从而增加了认知负荷.</p>
+<p>在上面例子那个不纯的版本中, <code>checkAge</code>的结果取决于外部变量<code>minimum</code>. 也就是说它取决于系统状态; 由于引入了外部环境, 从而增加了<strong>认知负荷</strong>.</p>
 <p>另一方面使用纯函数的形式, 函数就能做到自给自足. 也可以使<code>minimum</code>成为一个不可变对象, 这样就保留了纯粹性. 为了实现这个效果可以这样做:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> immutableState = <span class="built_in">Object</span>.freeze(&#123;</span><br><span class="line">  minimum: <span class="number">21</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h2 id="副作用有哪些"><a href="#副作用有哪些" class="headerlink" title="副作用有哪些"></a>副作用有哪些</h2><p>现在来研究一下副作用. 首先看作用, 我们可以理解为一切除结果计算之外发生的事情. 那么副作用呢?</p>
@@ -676,7 +676,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
