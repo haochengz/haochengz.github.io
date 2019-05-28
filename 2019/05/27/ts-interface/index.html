@@ -100,18 +100,18 @@
 
 
 
-  <meta name="description" content="接口简介Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中接口的角色就是为这些类型命名, 这在定义你自己代码或项目之外其他">
+  <meta name="description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  接口简介Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中">
 <meta name="keywords" content="typescript,language,翻译,语言学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Typescript 官方文档翻译 第三章 接口">
 <meta property="og:url" content="http://blog.neverland.tech/2019/05/27/ts-interface/index.html">
 <meta property="og:site_name" content="Aspire">
-<meta property="og:description" content="接口简介Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中接口的角色就是为这些类型命名, 这在定义你自己代码或项目之外其他">
+<meta property="og:description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  接口简介Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-27T06:36:13.651Z">
+<meta property="og:updated_time" content="2019-05-28T08:15:55.890Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Typescript 官方文档翻译 第三章 接口">
-<meta name="twitter:description" content="接口简介Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中接口的角色就是为这些类型命名, 这在定义你自己代码或项目之外其他">
+<meta name="twitter:description" content="本篇文章翻译自Typescript官方文档, 可点击查看原文  接口简介Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中">
 
 
 
@@ -392,12 +392,24 @@
                 
               
 
-              <time title="创建时间：2019-05-27 13:12:55 / 修改时间：14:36:13" itemprop="dateCreated datePublished" datetime="2019-05-27T13:12:55+08:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 13:12:55" itemprop="dateCreated datePublished" datetime="2019-05-27T13:12:55+08:00">2019-05-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-28 16:15:55" itemprop="dateModified" datetime="2019-05-28T16:15:55+08:00">2019-05-28</time>
               
             
           </span>
@@ -449,7 +461,9 @@
       
 
       
-        <h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中接口的角色就是为这些类型命名, 这在定义你自己代码或项目之外其他代码的协议是非常强大的.</p>
+        <p>本篇文章翻译自Typescript官方文档, 可点击查看<a href="https://www.typescriptlang.org/docs/handbook/interfaces.html" target="_blank" rel="noopener">原文</a></p>
+<hr>
+<h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Typescript的其中一个核心原则就是类型检查关注于检查值的外形(One of Typescript’s core principles is that type checking focuses on the shape that values have). 有时称为”鸭子类型”或”结构子类型”. Typescript中接口的角色就是为这些类型命名, 这在定义你自己代码或项目之外其他代码的协议是非常强大的.</p>
 <h2 id="第一个接口"><a href="#第一个接口" class="headerlink" title="第一个接口"></a>第一个接口</h2><p>用一个最简单的示例看接口是如何工作的:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLabel</span>(<span class="params">labeledObj: &#123;label: <span class="built_in">string</span>&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(labeledObj.label);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> myObj = &#123;size: <span class="number">10</span>, label: <span class="string">'Size 10 Object'</span>&#125;;</span><br><span class="line">printLabel(myObj);</span><br></pre></td></tr></table></figure>
 <p>类型检查器检查对<code>printLabel</code>的调用. 函数<code>printLabel</code>有一个参数, 该参数要求一个<code>string</code>类型, 名称是<code>label</code>的对象. 注意我们传入的参数实际有更多的属性, 但编译器仅仅检查至少需要的那个属性存在而且类型相符. 也有一些场景Typescript的检查会更加严格.</p>
@@ -466,13 +480,32 @@
 <h2 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h2><p>有的属性应当只能在创建时被赋值一次. 使用<code>readonly</code>可以指定为只读属性:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Point &#123;</span><br><span class="line">  readonly x: <span class="built_in">number</span>;</span><br><span class="line">  readonly y: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>也可以使用对象字面量创建一个<code>Point</code>对象. 赋值之后<code>x</code>和<code>y</code>不能被修改.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1: Point = &#123;x: <span class="number">10</span>, y: <span class="number">20</span>&#125;;</span><br><span class="line">p1.x = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1: Point = &#123;x: <span class="number">10</span>, y: <span class="number">20</span>&#125;;</span><br><span class="line">p1.x = <span class="number">5</span>; <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
 <p>Typescript还有<code>ReadonlyArray&lt;T&gt;</code>类型, 它和<code>Array&lt;T&gt;</code>一样, 除了移除了所有可变(修改数组状态的)方法, 因此可以确保你的数组创建之后不会被修改.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">let</span> ro: ReadonlyArray&lt;<span class="built_in">number</span>&gt; = a;</span><br><span class="line">ro[<span class="number">0</span>] = <span class="number">12</span>;       <span class="comment">// Error</span></span><br><span class="line">ro.push(<span class="number">5</span>);       <span class="comment">// Error</span></span><br><span class="line">ro.length = <span class="number">100</span>;  <span class="comment">// Error</span></span><br><span class="line">a = ro;           <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
 <p>上个示例的最后一行可以看到甚至不能将整个<code>ReadonlyArray</code>赋值给一个普通数组. 使用类型断言可以覆盖这个行为:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = ro <span class="keyword">as</span> <span class="built_in">number</span>[];</span><br></pre></td></tr></table></figure>
 <h3 id="readonly-vs-const"><a href="#readonly-vs-const" class="headerlink" title="readonly vs const"></a>readonly vs const</h3><p>一个记住<code>readonly</code>和<code>const</code>最简单的方法就是问下自己是使用在变量上海市属性上. 变量使用<code>const</code>, 同时属性使用<code>readonly</code>.</p>
-<h2 id="额外属性检查"><a href="#额外属性检查" class="headerlink" title="额外属性检查"></a>额外属性检查</h2><h2 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h2><h2 id="可索引类型"><a href="#可索引类型" class="headerlink" title="可索引类型"></a>可索引类型</h2><h2 id="类类型"><a href="#类类型" class="headerlink" title="类类型"></a>类类型</h2><h2 id="扩展接口"><a href="#扩展接口" class="headerlink" title="扩展接口"></a>扩展接口</h2><h2 id="混合类型"><a href="#混合类型" class="headerlink" title="混合类型"></a>混合类型</h2><h2 id="接口扩展类"><a href="#接口扩展类" class="headerlink" title="接口扩展类"></a>接口扩展类</h2>
+<h2 id="额外属性检查"><a href="#额外属性检查" class="headerlink" title="额外属性检查"></a>额外属性检查</h2><p>第一个例子中, Typescript允许我们将参数<code>{size: number; label: string;}</code>传入一个只期待<code>{label: string}</code>的参数. 我们也学习了可选属性, 以及它们用于所谓’选项包’时的作用.</p>
+<p>然而如果同时允许可选属性和选项包作用, 可能会引入bug, 例如上一个例子中:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> SquareConfig &#123;</span><br><span class="line">    color?: <span class="built_in">string</span>;</span><br><span class="line">    width?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSquare</span>(<span class="params">config: SquareConfig</span>): </span>&#123; color: <span class="built_in">string</span>; area: <span class="built_in">number</span> &#125; &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> mySquare = createSquare(&#123; colour: <span class="string">"red"</span>, width: <span class="number">100</span> &#125;); <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+<p>注意<code>createSquare</code>的参数拼写成了<code>colour</code>而非<code>color</code>. 在Javascript中并不会报错.</p>
+<p>你可能认为这个程序是正确的, 因为<code>wdith</code>是正确的, <code>color</code>不存在, 同时多余的<code>colour</code>不重要.</p>
+<p>然而, Typescript对此的态度是在这段代码中可能隐含bug. 对象字面量被特殊对待且在赋值给一个变量或参数时受到额外的属性检查. 如果对象字面量在传入目标变量时有目标变量类型中未定义的属性, 将导致一个错误.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// error: 'colour' not expected in type 'SquareConfig'</span></span><br><span class="line"><span class="keyword">let</span> mySquare = createSquare(&#123; colour: <span class="string">"red"</span>, width: <span class="number">100</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>绕过这类检查非常容易, 最简单的方法就是使用类型断言.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySquare = createSquare(&#123; width: <span class="number">100</span>, opacity: <span class="number">0.5</span> &#125; <span class="keyword">as</span> SquareConfig);</span><br></pre></td></tr></table></figure>
+<p>不过一个更好的方法是添加一个字符串索引签名, 如果你能确定对象在某些特殊情况下可以接受多余的参数. 如果<code>SquareConfig</code>可以有<code>color</code>和<code>width</code>属性, 同时也可以有任意个其他属性, 我们可以这样定义:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> SqaureConfig &#123;</span><br><span class="line">  color?: <span class="built_in">string</span>;</span><br><span class="line">  width?: <span class="built_in">number</span>;</span><br><span class="line">  [propName: <span class="built_in">string</span>]: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们稍后讨论索引签名, 但我们说<code>SquareConfig</code>可以有任意个属性, 只要他们不是<code>color</code>或<code>width</code>, 它们的类型就可以是任意类型.</p>
+<p>最后一个绕过这类检查的方式你可能会觉得惊讶, 只要把它赋值给一个变量, 编译器不会对变量做额外类型检查.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> squareOptions = &#123; colour: <span class="string">"red"</span>, width: <span class="number">100</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> mySquare = createSquare(squareOptions);</span><br></pre></td></tr></table></figure>
+<p>上面这个变通的方法中只要你在<code>squareOptions</code>和<code>SquareConfig</code>中有共有属性就可行. 这个例子中, 共有属性是<code>width</code>. 不过如果没有任何共有属性, 这个方法依然会失败. 如:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> squareOptions = &#123; colour: <span class="string">"red"</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> mySquare = createSquare(squareOptions);</span><br></pre></td></tr></table></figure>
+<p>请记住，对于像上面这样的简单代码，您可能不应该试图“绕过”这些检查。对于具有方法和状态的更复杂的对象字面量，您可能需要时刻记着这类技术，但是大多数多余的属性错误实际上都是bug。这意味着如果您遇到类似选项包等问题的多余属性检查问题，您可能需要修改一些类型声明。在这种情况下，如果可以将具有颜色或颜色属性的对象传递给createSquare，则应该修改SquareConfig的定义以反映实际状况.</p>
+<h2 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h2><h2 id="可索引类型"><a href="#可索引类型" class="headerlink" title="可索引类型"></a>可索引类型</h2><h2 id="类类型"><a href="#类类型" class="headerlink" title="类类型"></a>类类型</h2><h2 id="扩展接口"><a href="#扩展接口" class="headerlink" title="扩展接口"></a>扩展接口</h2><h2 id="混合类型"><a href="#混合类型" class="headerlink" title="混合类型"></a>混合类型</h2><h2 id="接口扩展类"><a href="#接口扩展类" class="headerlink" title="接口扩展类"></a>接口扩展类</h2><hr>
+<p>本篇文章翻译自Typescript官方文档, 可点击查看<a href="https://www.typescriptlang.org/docs/handbook/interfaces.html" target="_blank" rel="noopener">原文</a></p>
+
       
     </div>
 
