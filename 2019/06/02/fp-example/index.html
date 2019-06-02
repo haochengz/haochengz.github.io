@@ -100,18 +100,18 @@
 
 
 
-  <meta name="description" content="声明式代码">
+  <meta name="description" content="声明式代码123456789// 命令式var makes = [];for (i = 0; i &amp;lt; cars.length; i++) &amp;#123;  makes.push(cars[i].make);&amp;#125;// 声明式var makes = cars.map(function(car)&amp;#123; return car.make; &amp;#125;); 命令式的代码迭代了cars列表,">
 <meta name="keywords" content="函数式编程,Javascript,编程范式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="函数式编程 第五篇 示例代码">
 <meta property="og:url" content="http://blog.neverland.tech/2019/06/02/fp-example/index.html">
 <meta property="og:site_name" content="Aspire">
-<meta property="og:description" content="声明式代码">
+<meta property="og:description" content="声明式代码123456789// 命令式var makes = [];for (i = 0; i &amp;lt; cars.length; i++) &amp;#123;  makes.push(cars[i].make);&amp;#125;// 声明式var makes = cars.map(function(car)&amp;#123; return car.make; &amp;#125;); 命令式的代码迭代了cars列表,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-02T09:12:59.212Z">
+<meta property="og:updated_time" content="2019-06-02T11:32:08.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程 第五篇 示例代码">
-<meta name="twitter:description" content="声明式代码">
+<meta name="twitter:description" content="声明式代码123456789// 命令式var makes = [];for (i = 0; i &amp;lt; cars.length; i++) &amp;#123;  makes.push(cars[i].make);&amp;#125;// 声明式var makes = cars.map(function(car)&amp;#123; return car.make; &amp;#125;); 命令式的代码迭代了cars列表,">
 
 
 
@@ -392,7 +392,7 @@
                 
               
 
-              <time title="创建时间：2019-06-02 17:09:41 / 修改时间：17:12:59" itemprop="dateCreated datePublished" datetime="2019-06-02T17:09:41+08:00">2019-06-02</time>
+              <time title="创建时间：2019-06-02 17:09:41 / 修改时间：19:32:08" itemprop="dateCreated datePublished" datetime="2019-06-02T17:09:41+08:00">2019-06-02</time>
             
 
             
@@ -449,7 +449,23 @@
       
 
       
-        <h2 id="声明式代码"><a href="#声明式代码" class="headerlink" title="声明式代码"></a>声明式代码</h2>
+        <h2 id="声明式代码"><a href="#声明式代码" class="headerlink" title="声明式代码"></a>声明式代码</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 命令式</span></span><br><span class="line"><span class="keyword">var</span> makes = [];</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; cars.length; i++) &#123;</span><br><span class="line">  makes.push(cars[i].make);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明式</span></span><br><span class="line"><span class="keyword">var</span> makes = cars.map(<span class="function"><span class="keyword">function</span>(<span class="params">car</span>)</span>&#123; <span class="keyword">return</span> car.make; &#125;);</span><br></pre></td></tr></table></figure>
+<p>命令式的代码迭代了cars列表, 手动增加计数器, 以及各种零散的东西. 相比起来声明式代码指明的是<strong>做什么</strong>而不是<strong>怎么做</strong>.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 命令式</span></span><br><span class="line"><span class="keyword">var</span> authenticate = <span class="function"><span class="keyword">function</span>(<span class="params">form</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = toUser(form);</span><br><span class="line">  <span class="keyword">return</span> logIn(user);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明式</span></span><br><span class="line"><span class="keyword">var</span> authenticate = compose(logIn, toUser);</span><br></pre></td></tr></table></figure>
+<h2 id="一个函数式的flickr"><a href="#一个函数式的flickr" class="headerlink" title="一个函数式的flickr"></a>一个函数式的flickr</h2><p>这个应用将做4件事:</p>
+<ol>
+<li>根据特定搜索关键字构造url</li>
+<li>向flickr发送api请求</li>
+<li>把返回的json转为html</li>
+<li>把图片展示出来</li>
+</ol>
+<p>以上动作中有两个是不纯的, 包括从flickr的api获取数据和把图片展示到屏幕上. 我们就先定义这两个动作, 这样就能隔离它们了.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Impure = &#123;</span><br><span class="line">  getJSON: _.curry(<span class="function"><span class="keyword">function</span>(<span class="params">callback, url</span>) </span>&#123;</span><br><span class="line">    $.getJSON(url, callback);</span><br><span class="line">  &#125;),</span><br><span class="line">  </span><br><span class="line">  setHtml: _.curry(<span class="function"><span class="keyword">function</span>(<span class="params">sel, html</span>) </span>&#123;</span><br><span class="line">    $(sel).html(html);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>下一步是构造url, 生成的url用于传递给Impure.getJSON方法.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> url = <span class="function"><span class="keyword">function</span> (<span class="params">term</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'https://api.flickr.com/services/feeds/photos_public.gne?tags='</span> + term + <span class="string">'&amp;format=json&amp;jsoncallback=?'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接着就是获取请求内容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = _.compose(Impure.getJSON(trace(<span class="string">"response"</span>)), url);</span><br><span class="line"></span><br><span class="line">app(<span class="string">"cats"</span>);</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -504,6 +520,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/02/fp-hindley-milner/" rel="prev" title="函数式编程 第六篇 Hindley-Milner 类型签名">
+                函数式编程 第六篇 Hindley-Milner 类型签名 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -574,7 +594,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -704,7 +724,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明式代码"><span class="nav-number">1.</span> <span class="nav-text">声明式代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明式代码"><span class="nav-number">1.</span> <span class="nav-text">声明式代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个函数式的flickr"><span class="nav-number">2.</span> <span class="nav-text">一个函数式的flickr</span></a></li></ol></div>
             
 
           </div>
